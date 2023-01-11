@@ -38,7 +38,10 @@ public class Init extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon("/home/kevinsdj/Escritorio/java-projects/HotelAlura/images/menu-img.png")); // NOI18N
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 701, -1));
+        jLabel1.setMaximumSize(new java.awt.Dimension(1024, 600));
+        jLabel1.setMinimumSize(new java.awt.Dimension(1024, 600));
+        jLabel1.setPreferredSize(new java.awt.Dimension(1024, 600));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 701, 540));
 
         jPanel2.setBackground(new java.awt.Color(25, 129, 175));
 
@@ -78,7 +81,7 @@ public class Init extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(701, 0, 330, 539));
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(701, 0, 330, 540));
     }// </editor-fold>//GEN-END:initComponents
 
 
