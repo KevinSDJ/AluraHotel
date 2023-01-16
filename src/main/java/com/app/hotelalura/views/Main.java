@@ -1,5 +1,7 @@
 package com.app.hotelalura.views;
 
+import java.awt.Color;
+
 
 public class Main extends javax.swing.JFrame {
 
@@ -8,16 +10,15 @@ public class Main extends javax.swing.JFrame {
        
     }
     private void initComponents() {
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
         setMinimumSize(new java.awt.Dimension(1024, 600));
         setName("main"); 
         setResizable(false);
         setUndecorated(true);
-        initPanel= new Init();
+        setBackground(new Color(0,0,0,0));
+        initPanel= new Home();
         initPanel.setVisible(true);
-
         add(initPanel);
         pack();
         setLocationRelativeTo(null);

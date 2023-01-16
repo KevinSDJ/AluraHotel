@@ -29,6 +29,8 @@ public class LoginWindow extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
         setUndecorated(true);
 
+        roundedPanel2.setBackground(new java.awt.Color(25, 129, 175));
+
         jLabel1.setIcon(new javax.swing.ImageIcon("/home/kevinsdj/Escritorio/java-projects/HotelAlura/images/img-hotel-login-.png")); // NOI18N
         jLabel1.setText("jLabel1");
 

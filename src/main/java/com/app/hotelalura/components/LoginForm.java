@@ -51,7 +51,7 @@ public class LoginForm extends javax.swing.JPanel {
         jLabel4.setText("Password");
 
         jLabel2.setBackground(new java.awt.Color(102, 0, 102));
-        jLabel2.setIcon(new javax.swing.ImageIcon("/home/kevinsdj/Escritorio/java-projects/HotelAlura/images/aH-40px.png")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon("/home/kevinsdj/Escritorio/java-projects/HotelAlura/images/lOGO-50PX.png")); // NOI18N
 
         jLabel5.setBackground(new java.awt.Color(204, 204, 204));
         jLabel5.setFont(new java.awt.Font("Nimbus Sans", 1, 18)); // NOI18N

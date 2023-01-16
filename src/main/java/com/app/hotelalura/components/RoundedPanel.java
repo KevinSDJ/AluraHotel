@@ -37,8 +37,8 @@ public class RoundedPanel extends javax.swing.JPanel {
     protected void paintComponent(Graphics g) {
         Graphics2D g2d =(Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setColor(new Color(25,129,175));
-        g2d.setPaint(new Color(25,129,175));
+        g2d.setColor(getBackground());
+        g2d.setPaint(getBackground());
         g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
         super.paintComponent(g);
 
