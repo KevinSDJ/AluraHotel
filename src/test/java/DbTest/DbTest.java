@@ -1,6 +1,7 @@
 package DbTest;
 
 import com.app.hotelalura.dbconn.DbConn;
+import com.app.hotelalura.utils.enviroment.GetCredentialsDb;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -17,5 +18,9 @@ public class DbTest {
         } catch (SQLException ex) {
             Logger.getLogger(DbTest.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println(GetCredentialsDb.getUrl());
+        System.out.println(GetCredentialsDb.getUser());
+        System.out.println(GetCredentialsDb.getPassword());
     }
+    
 }
