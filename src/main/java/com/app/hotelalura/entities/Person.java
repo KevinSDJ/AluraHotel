@@ -8,7 +8,6 @@ public class Person {
     private String name;
     private String surname;
     private Date dataBirth;
- 
     private String nationality;
     private long phone;
     

@@ -2,6 +2,7 @@ package com.app.hotelalura.utils.base;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Subject {
     
@@ -19,10 +20,18 @@ public class Subject {
     public void notifyAction(){
         notifyAllObservers();
     }
+    public void notifyState(Map<String,Object> data){
+        notifyAllObservers(data);
+    }
     
     private void notifyAllObservers(){
         for(Observer observer:observers){
             observer.update();
+        }
+    }
+    public void notifyAllObservers(Map<String,Object> data){
+        for(Observer observer:observers){
+            observer.update(data);
         }
     }
     

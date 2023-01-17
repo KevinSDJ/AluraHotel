@@ -1,6 +1,5 @@
 package BookingFormTest;
 
-import com.app.hotelalura.components.BookingForm;
 import com.app.hotelalura.views.RegisterBooking;
 
 public class BookingFormTest {

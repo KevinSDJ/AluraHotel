@@ -32,7 +32,7 @@ public class DbConn {
     public static Connection getConnection() throws SQLException{
         return instance.exposeConnection();
     }
-    public Connection exposeConnection() throws SQLException{
+    private Connection exposeConnection() throws SQLException{
         return this.dataSource.getConnection();
     }
    

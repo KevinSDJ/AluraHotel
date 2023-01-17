@@ -1,36 +1,40 @@
 package com.app.hotelalura.entities;
 
-import java.util.Date;
 
-class Booking {
-    private String id;
-    private Date dateIn;
-    private Date dateOut;
+
+public class Booking {
+
+    private String code;
+    private String dateIn;
+    private String dateOut;
     private int value;
     private String paymentMethod;
-    public Booking(){}
 
-    public String getId() {
-        return id;
+    public Booking() {
     }
 
-    public void setId(String id) {
-        this.id = id;
+    
+    public String getCode() {
+        return code;
     }
 
-    public Date getDateIn() {
+    public void setCode(String code) {
+        this.code = code;
+    }
+    
+    public String getDateIn() {
         return dateIn;
     }
 
-    public void setDateIn(Date dateIn) {
+    public void setDateIn(String dateIn) {
         this.dateIn = dateIn;
     }
 
-    public Date getDateOut() {
+    public String getDateOut() {
         return dateOut;
     }
 
-    public void setDateOut(Date dateOut) {
+    public void setDateOut(String dateOut) {
         this.dateOut = dateOut;
     }
 
@@ -52,8 +56,7 @@ class Booking {
 
     @Override
     public String toString() {
-        return "Booking{" + "id=" + id + ", dateIn=" + dateIn + ", dateOut=" + dateOut + ", value=" + value + ", paymentMethod=" + paymentMethod + '}';
+        return "Booking{" + "code=" + code + ", dateIn=" + dateIn + ", dateOut=" + dateOut + ", value=" + value + ", paymentMethod=" + paymentMethod + '}';
     }
-    
-    
+
 }

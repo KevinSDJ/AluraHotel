@@ -135,7 +135,7 @@
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="af" green="81" red="19" type="rgb"/>
+          <Color blue="be" green="c5" red="83" type="rgb"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Nimbus Sans" size="18" style="0"/>
@@ -151,7 +151,7 @@
     <Component class="javax.swing.JButton" name="jButton2">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="cc" green="cc" red="cc" type="rgb"/>
+          <Color blue="66" green="66" red="66" type="rgb"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Nimbus Sans" size="18" style="0"/>

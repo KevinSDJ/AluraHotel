@@ -5,6 +5,7 @@ import com.app.hotelalura.utils.base.Observer;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Map;
 
 
 public class Init extends javax.swing.JPanel implements Observer {
@@ -194,5 +195,10 @@ public class Init extends javax.swing.JPanel implements Observer {
     @Override
     public void update() {
         closedLoginWindow();
+    }
+
+    @Override
+    public void update(Map<String, Object> data) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

@@ -1,38 +1,49 @@
 package com.app.hotelalura.views;
 
-import java.awt.Color;
-import java.awt.Component;
 
-public class RegisterBooking extends javax.swing.JFrame {
+import com.app.hotelalura.utils.ReservationStateManage;
+import com.app.hotelalura.utils.base.Observer;
+import com.app.hotelalura.utils.base.Subject;
+import java.awt.Color;
+import java.util.Map;
+
+public class RegisterBooking extends javax.swing.JFrame implements Observer {
+    private Subject reservState=ReservationStateManage.getInstance();
 
     public RegisterBooking() {
         initComponents();
         setBackground(new Color(0,0,0,80));
         container.setBackground(new Color(0,0,0,0));
+        reservState.subscribe(this);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         container = new javax.swing.JPanel();
-        bookingForm1 = new com.app.hotelalura.components.BookingForm();
+        guestForm1 = new com.app.hotelalura.components.GuestForm();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1024, 600));
         setUndecorated(true);
         setResizable(false);
 
-        container.setBackground(new java.awt.Color(51, 0, 255));
+        container.setBackground(new java.awt.Color(204, 204, 255));
 
         javax.swing.GroupLayout containerLayout = new javax.swing.GroupLayout(container);
         container.setLayout(containerLayout);
         containerLayout.setHorizontalGroup(
             containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 870, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, containerLayout.createSequentialGroup()
+                .addContainerGap(39, Short.MAX_VALUE)
+                .addComponent(guestForm1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
         );
         containerLayout.setVerticalGroup(
             containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, containerLayout.createSequentialGroup()
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addComponent(guestForm1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -40,26 +51,16 @@ public class RegisterBooking extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(116, Short.MAX_VALUE)
-                .addComponent(bookingForm1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(91, Short.MAX_VALUE)
-                    .addComponent(container, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(63, Short.MAX_VALUE)))
+                .addContainerGap(67, Short.MAX_VALUE)
+                .addComponent(container, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
-                .addComponent(bookingForm1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(31, Short.MAX_VALUE)
-                    .addComponent(container, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(29, Short.MAX_VALUE)))
+                .addContainerGap(31, Short.MAX_VALUE)
+                .addComponent(container, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -101,7 +102,17 @@ public class RegisterBooking extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.app.hotelalura.components.BookingForm bookingForm1;
     private javax.swing.JPanel container;
+    private com.app.hotelalura.components.GuestForm guestForm1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void update(Map<String, Object> data) {
+       data.get("cancel");
+    }
 }

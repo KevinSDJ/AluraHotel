@@ -58,14 +58,14 @@ public class LoginForm extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
         jLabel5.setText("Username");
 
-        jButton1.setBackground(new java.awt.Color(25, 129, 175));
+        jButton1.setBackground(new java.awt.Color(131, 197, 190));
         jButton1.setFont(new java.awt.Font("Nimbus Sans", 0, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("enter");
         jButton1.setAlignmentY(0.0F);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jButton2.setBackground(new java.awt.Color(204, 204, 204));
+        jButton2.setBackground(new java.awt.Color(102, 102, 102));
         jButton2.setFont(new java.awt.Font("Nimbus Sans", 0, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("cancel");
