@@ -29,10 +29,10 @@ public class DbConn {
         this.dataSource= poolDataSource;
     }
     
-    public static Connection getConnection() throws SQLException{
+    public static Connection getConnection() throws SQLException,Exception,RuntimeException{
         return instance.exposeConnection();
     }
-    private Connection exposeConnection() throws SQLException{
+    private Connection exposeConnection() throws SQLException,Exception,RuntimeException{
         return this.dataSource.getConnection();
     }
    

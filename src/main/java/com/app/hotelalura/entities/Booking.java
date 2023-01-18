@@ -7,7 +7,15 @@ public class Booking {
     private String code;
     private String dateIn;
     private String dateOut;
-    private int value;
+    private Double price;
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
     private String paymentMethod;
 
     public Booking() {
@@ -38,14 +46,6 @@ public class Booking {
         this.dateOut = dateOut;
     }
 
-    public int getValue() {
-        return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
-    }
-
     public String getPaymentMethod() {
         return paymentMethod;
     }
@@ -56,7 +56,7 @@ public class Booking {
 
     @Override
     public String toString() {
-        return "Booking{" + "code=" + code + ", dateIn=" + dateIn + ", dateOut=" + dateOut + ", value=" + value + ", paymentMethod=" + paymentMethod + '}';
+        return "Booking{" + "code=" + code + ", dateIn=" + dateIn + ", dateOut=" + dateOut + ", price=" + price + ", paymentMethod=" + paymentMethod + '}';
     }
 
 }

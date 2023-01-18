@@ -2,12 +2,12 @@ package com.app.hotelalura.entities;
 
 import java.util.Date;
 
-public class Person {
+public abstract class Person {
 
     private int id;
-    private String name;
+    private String first_name;
     private String surname;
-    private Date dataBirth;
+    private Date dateBirth;
     private String nationality;
     private long phone;
     
@@ -22,13 +22,15 @@ public class Person {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
     }
+
+   
 
     public String getSurname() {
         return surname;
@@ -38,12 +40,12 @@ public class Person {
         this.surname = surname;
     }
 
-    public Date getDataBirth() {
-        return dataBirth;
+    public Date getDateBirth() {
+        return dateBirth;
     }
 
-    public void setDataBirth(Date dataBirth) {
-        this.dataBirth = dataBirth;
+    public void setDateBirth(Date dataBirth) {
+        this.dateBirth = dataBirth;
     }
 
     public String getNationality() {
@@ -64,7 +66,7 @@ public class Person {
     
     @Override
     public String toString() {
-        return "Person{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", dataBirth=" + dataBirth + ", nationality=" + nationality + ", phone=" + phone + '}';
+        return "Person{" + "id=" + id + ", name=" + first_name + ", surname=" + surname + ", dataBirth=" + dateBirth + ", nationality=" + nationality + ", phone=" + phone + '}';
     }
 
 }
