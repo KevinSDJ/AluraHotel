@@ -8,12 +8,12 @@ public abstract class  Subject<T> {
     protected List<Observer> observers= new ArrayList<>();
     protected T state;
     
-    public Subject(){
-        
-    }
+    public Subject(){}
+
     public void insertState(T o){
         this.state=o;
     }
+
     public void subscribe(Observer observer){
         this.observers.add(observer);
     }

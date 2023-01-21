@@ -21,7 +21,7 @@ public class LoginWindow extends javax.swing.JFrame {
 
         roundedPanel2.setBackground(new java.awt.Color(25, 129, 175));
 
-        loginImage.setIcon(new javax.swing.ImageIcon("/home/kevinsdj/Escritorio/java-projects/HotelAlura/images/img-hotel-login-.png")); // NOI18N
+        loginImage.setIcon(new javax.swing.ImageIcon(LoginWindow.class.getResource("/images/img-hotel-login-.png")));
         loginImage.setText(null);
 
         javax.swing.GroupLayout roundedPanel2Layout = new javax.swing.GroupLayout(roundedPanel2);
