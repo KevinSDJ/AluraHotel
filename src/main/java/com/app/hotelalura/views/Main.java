@@ -2,31 +2,28 @@ package com.app.hotelalura.views;
 
 import java.awt.Color;
 
-
 public class Main extends javax.swing.JFrame {
 
     public Main() {
         initComponents();
-       
     }
+
     private void initComponents() {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
         setMinimumSize(new java.awt.Dimension(1024, 600));
-        setName("main"); 
+        setName("main");
         setResizable(false);
         setUndecorated(true);
-        setBackground(new Color(0,0,0,0));
-        initPanel= new Home();
-        initPanel.setVisible(true);
-        add(initPanel);
+        setBackground(new Color(0, 0, 0, 0));
+        current = new Init();
+        add(current);
         pack();
         setLocationRelativeTo(null);
     }
 
-    
     public static void main(String args[]) {
-        
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -34,13 +31,22 @@ public class Main extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-       
-        java.awt.EventQueue.invokeLater(()-> new Main().setVisible(true));
+
+        java.awt.EventQueue.invokeLater(() -> new Main().setVisible(true));
     }
-    //variables
-    private javax.swing.JPanel initPanel;
- 
+
+    public void changeVew() throws InterruptedException {
+        remove(current);
+        current = new Home();
+        add(current);
+    }
+
+    // variables
+    private javax.swing.JPanel current;
+    
+
 }

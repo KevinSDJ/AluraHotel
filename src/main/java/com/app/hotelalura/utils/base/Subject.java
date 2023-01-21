@@ -2,14 +2,17 @@ package com.app.hotelalura.utils.base;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-public class Subject {
+public abstract class  Subject<T> {
     
-    private final List<Observer> observers= new ArrayList<>();
+    protected List<Observer> observers= new ArrayList<>();
+    protected T state;
     
     public Subject(){
         
+    }
+    public void insertState(T o){
+        this.state=o;
     }
     public void subscribe(Observer observer){
         this.observers.add(observer);
@@ -17,22 +20,14 @@ public class Subject {
     public void unsubscribe(Observer observer){
         observers.remove(observer);
     }
-    public void notifyAction(){
-        notifyAllObservers();
+    public void notifyAction(T o){
+        notifyAllObservers(o);
     }
-    public void notifyState(Map<String,Object> data){
-        notifyAllObservers(data);
+    private void notifyAllObservers(T o){
+        for(Observer observer:observers){
+            observer.update(o);
+        }
     }
     
-    private void notifyAllObservers(){
-        for(Observer observer:observers){
-            observer.update();
-        }
-    }
-    public void notifyAllObservers(Map<String,Object> data){
-        for(Observer observer:observers){
-            observer.update(data);
-        }
-    }
     
 }

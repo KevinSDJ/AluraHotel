@@ -12,13 +12,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class BookingDAO implements ICrud<Booking, String> {
+public class BookingDAO implements ICrud<Booking, Integer> {
 
     private static final BookingDAO instance = new BookingDAO();
 
     private BookingDAO() {
     }
-    public static BookingDAO getInstance(){
+
+    public static BookingDAO getInstance() {
         return instance;
     }
 
@@ -51,7 +52,7 @@ public class BookingDAO implements ICrud<Booking, String> {
     }
 
     @Override
-    public Booking findOne(String id) {
+    public Booking findOne(Integer id) {
         Booking result = null;
         try (Connection conn = DbConn.getConnection()) {
             String sql = String.format("SELECT * FROM %s", Booking.class.getName() + "s");
@@ -65,7 +66,7 @@ public class BookingDAO implements ICrud<Booking, String> {
                     booking.setDateOut(resultset.getString("dateOut"));
                     booking.setPrice(resultset.getDouble("price"));
                     booking.setPaymentMethod(resultset.getString("paymentMethod"));
-                    result= booking;
+                    result = booking;
                 }
             }
         } catch (SQLException ex) {
@@ -78,12 +79,36 @@ public class BookingDAO implements ICrud<Booking, String> {
     }
 
     @Override
-    public String save(Booking o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Integer save(Booking o) {
+        try (Connection conn = DbConn.getConnection()) {
+            String sql = "INSERT INTO Booking (dateIn,dateOut,price,paymentMethod) VALUES(?,?,?,?)";
+            try (PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                st.setString(1, o.getDateIn());
+                st.setString(2, o.getDateOut());
+                st.setDouble(3, o.getPrice());
+                st.setString(4, o.getPaymentMethod());
+                st.execute();
+                ResultSet rst = st.getGeneratedKeys();
+                if (rst != null && rst.next()) {
+                    return rst.getInt(1);
+                }
+                 
+            } catch (SQLException ex) {
+                throw new SQLException(ex);
+            } catch (Exception ex) {
+                throw new Exception(ex);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

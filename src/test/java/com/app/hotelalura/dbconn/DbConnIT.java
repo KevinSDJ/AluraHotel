@@ -1,6 +1,5 @@
 package com.app.hotelalura.dbconn;
 
-
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
@@ -14,7 +13,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
 
 public class DbConnIT {
     
@@ -62,7 +60,8 @@ public class DbConnIT {
     @Test
     public void createTableBooking(){
          try (Connection conn = DbConn.getConnection(); PreparedStatement st = conn.prepareStatement("CREATE TABLE  if not exists Booking(\n"
-                + "code varchar(36) default(uuid()) primary key not null,\n"
+                + "id int primary key auto_increment not null,\n"
+                + "code varchar(36) default(uuid()) not null,\n"
                 + "dateIn varchar(10) not null,\n"
                 + "dateOut varchar(10) not null,\n"
                 + "price double not null,\n"
@@ -86,8 +85,8 @@ public class DbConnIT {
                 + "surname varchar(50) not null,\n"
                 + "nationality varchar(40) not null,\n"
                 + "phone long not null,\n"
-                + "id_booking varchar(36) not null ,\n"
-                + "foreign key (id_booking) references Booking(code)\n"
+                + "id_booking int not null ,\n"
+                + "foreign key (id_booking) references Booking(id)\n"
                 + ") engine=InnoDB;")) {
             boolean d = st.execute();
             assertEquals(true, true);
