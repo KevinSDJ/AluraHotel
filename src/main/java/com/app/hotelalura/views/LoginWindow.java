@@ -10,14 +10,14 @@ public class LoginWindow extends javax.swing.JFrame {
     }
     
     private void initComponents() {
-
+        setUndecorated(true);
         roundedPanel2 = new com.app.hotelalura.components.RoundedPanel();
         loginImage = new javax.swing.JLabel();
         loginForm = new com.app.hotelalura.components.LoginForm();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new Color(0,0,0,80));
-        setUndecorated(true);
+        
 
         roundedPanel2.setBackground(new java.awt.Color(25, 129, 175));
 

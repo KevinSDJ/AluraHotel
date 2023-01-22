@@ -111,9 +111,6 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="0" red="66" type="rgb"/>
         </Property>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="/home/kevinsdj/Escritorio/java-projects/HotelAlura/images/lOGO-50PX.png"/>
-        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="passwordInput">

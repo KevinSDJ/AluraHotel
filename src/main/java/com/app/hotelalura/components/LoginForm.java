@@ -1,7 +1,6 @@
 package com.app.hotelalura.components;
 
 import com.app.hotelalura.utils.ToggleChange;
-import com.app.hotelalura.views.Main;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;

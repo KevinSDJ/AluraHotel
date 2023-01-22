@@ -1,21 +1,25 @@
 package com.app.hotelalura.views;
 
+import com.app.hotelalura.utils.ToggleChange;
+import com.app.hotelalura.utils.base.Observer;
 import java.awt.Color;
 
-public class Main extends javax.swing.JFrame {
-
+public class Main extends javax.swing.JFrame implements Observer<Boolean>  {
+    
     public Main() {
         initComponents();
+        ToggleChange.addObserver(this);
     }
 
     private void initComponents() {
+        setUndecorated(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
         setMinimumSize(new java.awt.Dimension(1024, 600));
         setName("main");
         setResizable(false);
-        setUndecorated(true);
         setBackground(new Color(0, 0, 0, 0));
+        
         current = new Init();
         add(current);
         pack();
@@ -24,18 +28,7 @@ public class Main extends javax.swing.JFrame {
 
     public static void main(String args[]) {
 
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-                | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
+       
         java.awt.EventQueue.invokeLater(() -> new Main().setVisible(true));
     }
 
@@ -47,6 +40,11 @@ public class Main extends javax.swing.JFrame {
 
     // variables
     private javax.swing.JPanel current;
+
+    @Override
+    public void update(Boolean o) {
+        System.out.println("Desde el main notificando que el login se cerro");
+    }
     
 
 }

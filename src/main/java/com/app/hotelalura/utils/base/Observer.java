@@ -3,7 +3,7 @@ package com.app.hotelalura.utils.base;
 
 
 
-public interface Observer {
+public interface Observer<T> {
 
-    abstract public void update(Object o);
+    abstract public void update(T o);
 }

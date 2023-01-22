@@ -110,6 +110,7 @@ public class Init extends javax.swing.JPanel implements Observer<Boolean> {
         closeBtn.setBorderPainted(false);
         closeBtn.setFocusPainted(false);
         closeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 closeBtnMouseClicked(evt);
             }
