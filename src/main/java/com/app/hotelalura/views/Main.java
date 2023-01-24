@@ -46,7 +46,9 @@ public class Main extends javax.swing.JFrame implements Observer<Boolean> {
     @Override
     @SuppressWarnings("empty-statement")
     public void update(Boolean o) {
-        
+        // in javascript this would be a timeout, 
+        // this function uses a thread to simulate a late execution of the task so that 
+        // it waits as long as necessary for the task on which it depends to complete before
         if (!ToggleChange.isOpen()&& o) {
             System.out.println("Login is true, change");
             CompletableFuture.supplyAsync(() -> {
