@@ -8,6 +8,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
+
+import com.app.hotelalura.views.Home;
 
 /**
  *
@@ -18,10 +22,18 @@ public class Menu extends javax.swing.JPanel {
     /**
      * Creates new form Menu
      */
-    public Menu() {
+    public Menu(Home h) {
         initComponents();
         setOpaque(false);
         setBackground(new Color(0,0,0,0));
+        this.homeref=h;
+        jButton1.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                changeSection();
+            }
+            
+        });
     }
 
     /**
@@ -42,7 +54,7 @@ public class Menu extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(25, 129, 175));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("/home/kevinsdj/Escritorio/java-projects/HotelAlura/images/aH-150px.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/aH-150px.png"))); // NOI18N
 
         jSeparator1.setPreferredSize(new java.awt.Dimension(50, 150));
 
@@ -51,7 +63,7 @@ public class Menu extends javax.swing.JPanel {
         jButton1.setBackground(new java.awt.Color(25, 129, 175));
         jButton1.setFont(new java.awt.Font("Nimbus Sans", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon("/home/kevinsdj/Escritorio/java-projects/HotelAlura/images/icon-reservas.png")); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon-reservas.png"))); // NOI18N
         jButton1.setText("Register Booking");
         jButton1.setBorderPainted(false);
         jButton1.setDefaultCapable(false);
@@ -64,7 +76,7 @@ public class Menu extends javax.swing.JPanel {
         jButton4.setBackground(new java.awt.Color(25, 129, 175));
         jButton4.setFont(new java.awt.Font("Nimbus Sans", 1, 14)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setIcon(new javax.swing.ImageIcon("/home/kevinsdj/Escritorio/java-projects/HotelAlura/images/icon-buscar.png")); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon-buscar.png"))); // NOI18N
         jButton4.setText("Search");
         jButton4.setBorderPainted(false);
         jButton4.setDefaultCapable(false);
@@ -77,7 +89,7 @@ public class Menu extends javax.swing.JPanel {
         jButton5.setBackground(new java.awt.Color(25, 129, 175));
         jButton5.setFont(new java.awt.Font("Nimbus Sans", 1, 14)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setIcon(new javax.swing.ImageIcon("/home/kevinsdj/Escritorio/java-projects/HotelAlura/images/cerrar-sesion 32-px.png")); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cerrar-sesion 32-px.png"))); // NOI18N
         jButton5.setText("Logout");
         jButton5.setBorderPainted(false);
         jButton5.setDefaultCapable(false);
@@ -109,23 +121,22 @@ public class Menu extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(itemsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(itemsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(22, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(59, 59, 59))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addGap(63, 63, 63)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(itemsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -144,6 +155,12 @@ public class Menu extends javax.swing.JPanel {
 
     }
 
+    public void changeSection(){
+        homeref.changePanelView();
+
+    }
+    
+    private Home homeref;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel itemsContainer;
     private javax.swing.JButton jButton1;

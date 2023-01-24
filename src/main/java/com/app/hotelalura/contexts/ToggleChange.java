@@ -1,4 +1,4 @@
-package com.app.hotelalura.utils;
+package com.app.hotelalura.contexts;
 
 import com.app.hotelalura.utils.base.Observer;
 import com.app.hotelalura.utils.base.Subject;
@@ -12,8 +12,11 @@ public class ToggleChange extends Subject<Boolean> {
     
     
     private void setOpen(Boolean b){
-        this.state=b;
-        this.notifyAction(this.state);
+        instance.setState(b);
+        this.notifyAction(instance.getState());
+    }
+    public static Boolean isOpen(){
+        return instance.getState();
     }
     
     public static void changeState(Boolean o){

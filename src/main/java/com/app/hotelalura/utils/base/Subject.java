@@ -6,14 +6,20 @@ import java.util.List;
 public abstract class  Subject<T> {
     
     protected List<Observer> observers= new ArrayList<>();
-    protected T state;
+    private T state;
     
     public Subject(){}
 
     public void insertState(T o){
+        setState(o);
+    }
+    public T getState(){
+        return state;
+    }
+    public void setState(T o){
         this.state=o;
     }
-
+            
     public void subscribe(Observer observer){
         this.observers.add(observer);
     }

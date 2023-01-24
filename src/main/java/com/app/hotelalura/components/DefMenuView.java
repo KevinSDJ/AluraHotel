@@ -45,9 +45,9 @@ public class DefMenuView extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setMaximumSize(new java.awt.Dimension(750, 540));
+        setMaximumSize(new java.awt.Dimension(740, 540));
         setMinimumSize(new java.awt.Dimension(740, 540));
-        setPreferredSize(new java.awt.Dimension(750, 540));
+        setPreferredSize(new java.awt.Dimension(740, 540));
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 204));
 
@@ -69,7 +69,7 @@ public class DefMenuView extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(todayInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(216, Short.MAX_VALUE))
+                .addContainerGap(206, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

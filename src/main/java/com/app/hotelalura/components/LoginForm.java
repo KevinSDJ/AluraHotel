@@ -1,6 +1,7 @@
 package com.app.hotelalura.components;
 
-import com.app.hotelalura.utils.ToggleChange;
+import com.app.hotelalura.contexts.StateMainContext;
+import com.app.hotelalura.contexts.ToggleChange;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -30,6 +31,7 @@ public class LoginForm extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         enterBtnLogin = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -46,7 +48,6 @@ public class LoginForm extends javax.swing.JPanel {
         jLabel4.setText("Password");
 
         jLabel2.setBackground(new java.awt.Color(102, 0, 102));
-        jLabel2.setIcon(new javax.swing.ImageIcon("/home/kevinsdj/Escritorio/java-projects/HotelAlura/images/lOGO-50PX.png")); // NOI18N
 
         jLabel5.setBackground(new java.awt.Color(204, 204, 204));
         jLabel5.setFont(new java.awt.Font("Nimbus Sans", 1, 18)); // NOI18N
@@ -78,6 +79,8 @@ public class LoginForm extends javax.swing.JPanel {
             }
         });
 
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lOGO-50PX.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -85,6 +88,7 @@ public class LoginForm extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
                     .addComponent(jLabel2)
                     .addComponent(jLabel4)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -103,7 +107,9 @@ public class LoginForm extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(jLabel2)
-                .addGap(41, 41, 41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addGap(50, 50, 50)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel5)
@@ -123,11 +129,12 @@ public class LoginForm extends javax.swing.JPanel {
 
    
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        ToggleChange.changeState(true);
+        ToggleChange.changeState(false);
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void enterBtnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_enterBtnLoginMouseClicked
-        
+        ToggleChange.changeState(false);
+        StateMainContext.changeLoginState();
     }//GEN-LAST:event_enterBtnLoginMouseClicked
 
      @Override
@@ -147,6 +154,7 @@ public class LoginForm extends javax.swing.JPanel {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPasswordField passwordInput;

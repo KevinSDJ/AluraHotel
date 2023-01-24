@@ -1,50 +1,70 @@
 package com.app.hotelalura.views;
 
-import com.app.hotelalura.utils.ToggleChange;
+
+import com.app.hotelalura.contexts.StateMainContext;
+import com.app.hotelalura.contexts.ToggleChange;
 import com.app.hotelalura.utils.base.Observer;
 import java.awt.Color;
+import java.util.concurrent.CompletableFuture;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class Main extends javax.swing.JFrame implements Observer<Boolean>  {
-    
+public class Main extends javax.swing.JFrame implements Observer<Boolean> {
+
     public Main() {
         initComponents();
-        ToggleChange.addObserver(this);
+        StateMainContext.addObserver(this);
+        StateMainContext.addState(false);
     }
 
     private void initComponents() {
         setUndecorated(true);
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
-        setMinimumSize(new java.awt.Dimension(1024, 600));
-        setName("main");
+        setSize(1024,600);
         setResizable(false);
         setBackground(new Color(0, 0, 0, 0));
-        
-        current = new Init();
-        add(current);
-        pack();
         setLocationRelativeTo(null);
+        current=new Home();
+        add(current);
     }
 
     public static void main(String args[]) {
 
-       
         java.awt.EventQueue.invokeLater(() -> new Main().setVisible(true));
     }
 
-    public void changeVew() throws InterruptedException {
+    public void changeView() {
+        current.setVisible(false);
         remove(current);
-        current = new Home();
+        current=new Home();
+        current.setVisible(true);
         add(current);
+        revalidate();
+        repaint(300);
+    }
+
+    @Override
+    @SuppressWarnings("empty-statement")
+    public void update(Boolean o) {
+        
+        if (!ToggleChange.isOpen()&& o) {
+            System.out.println("Login is true, change");
+            CompletableFuture.supplyAsync(() -> {
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                changeView();
+                return null;
+            });
+        }else {
+            System.out.println("Can't change, login is open");
+        }
+        
     }
 
     // variables
     private javax.swing.JPanel current;
-
-    @Override
-    public void update(Boolean o) {
-        System.out.println("Desde el main notificando que el login se cerro");
-    }
-    
 
 }
