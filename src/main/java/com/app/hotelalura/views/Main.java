@@ -24,7 +24,7 @@ public class Main extends javax.swing.JFrame implements Observer<Boolean> {
         setResizable(false);
         setBackground(new Color(0, 0, 0, 0));
         setLocationRelativeTo(null);
-        current=new Home();
+        current=new Init();
         add(current);
     }
 
