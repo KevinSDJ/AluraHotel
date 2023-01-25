@@ -12,6 +12,7 @@ public class GetCredentialsDb {
      private String password;
      private String dbname;
      private String url;
+     private String secret;
      private final static GetCredentialsDb instance=new GetCredentialsDb();
      
      private GetCredentialsDb(){
@@ -30,6 +31,7 @@ public class GetCredentialsDb {
             this.user=env.get("MYSQL_USER");
             this.password= env.get("MYSQL_ROOT_PASSWORD");
             this.url=env.get("URL");
+            this.secret=env.get("SECRET");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -56,5 +58,8 @@ public class GetCredentialsDb {
      }
      public static String getUrl(){
          return instance.url;
+     }
+     public static String getSecret(){
+         return instance.secret;
      }
 }

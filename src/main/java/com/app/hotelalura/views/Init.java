@@ -23,6 +23,7 @@ public class Init extends javax.swing.JPanel implements Observer<Boolean> {
         hotelIcon = new javax.swing.JLabel();
         loginBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        loginWindow=new LoginWindow();
 
         setBackground(new Color(0,0,0,0));
         setSize(1024,600);
@@ -122,13 +123,12 @@ public class Init extends javax.swing.JPanel implements Observer<Boolean> {
 
     
     private void loginBtnMouseClicked(java.awt.event.MouseEvent evt) {
-        loginWindow= new LoginWindow();
         loginWindow.setVisible(true);
         
     }
 
 
-    private JFrame loginWindow=null;
+    private JFrame loginWindow;
     private javax.swing.JLabel receptionImg;
     private javax.swing.JLabel closeWindow;
     private javax.swing.JLabel jLabel3;
@@ -141,6 +141,5 @@ public class Init extends javax.swing.JPanel implements Observer<Boolean> {
     @Override
     public void update(Boolean o) {
         loginWindow.setVisible(false);
-        loginWindow=null;
     }
 }

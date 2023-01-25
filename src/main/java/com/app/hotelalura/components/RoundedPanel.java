@@ -10,6 +10,7 @@ public class RoundedPanel extends javax.swing.JPanel {
     public RoundedPanel() {
         initComponents();
         setOpaque(false);
+        setBackground(new Color(0,0,0,0));
     }
 
     /**

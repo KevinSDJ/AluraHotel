@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 
 
 public class HomeIT  extends JFrame{
+    private RegisterBooking rbooking;
     
     public HomeIT(){
         setSize(1024,600);
@@ -15,6 +16,8 @@ public class HomeIT  extends JFrame{
         setLocationRelativeTo(null);
         setBackground(new Color(0,0,0,0));
         add(new Home());
+        rbooking=new RegisterBooking();
+        rbooking.setVisible(true);
     }
     
      public static void main(String... args){

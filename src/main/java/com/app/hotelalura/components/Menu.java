@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.app.hotelalura.components;
 
 import java.awt.Color;
@@ -13,15 +9,10 @@ import java.awt.event.MouseAdapter;
 import com.app.hotelalura.views.Home;
 import java.awt.GradientPaint;
 
-/**
- *
- * @author kevinsdj
- */
+
 public class Menu extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Menu
-     */
+
     public Menu(Home h) {
         initComponents();
         setOpaque(false);
@@ -34,7 +25,7 @@ public class Menu extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         itemsContainer = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
+        closedSessionBtn = new javax.swing.JButton();
         registerBookingItem = new javax.swing.JButton();
         searchIconItem = new javax.swing.JButton();
 
@@ -46,19 +37,19 @@ public class Menu extends javax.swing.JPanel {
 
         itemsContainer.setBackground(new java.awt.Color(0, 0, 0, 0));
 
-        jButton5.setBackground(new Color(83, 169, 207));
-        jButton5.setFont(new java.awt.Font("Nimbus Sans", 1, 14)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cerrar-sesion 32-px.png"))); // NOI18N
-        jButton5.setText("Logout");
-        jButton5.setBorderPainted(false);
-        jButton5.setDefaultCapable(false);
-        jButton5.setFocusPainted(false);
-        jButton5.setFocusable(false);
-        jButton5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jButton5.addMouseListener(new MouseAdapter() {
-
+        closedSessionBtn.setBackground(new Color(83, 169, 207));
+        closedSessionBtn.setFont(new java.awt.Font("Nimbus Sans", 1, 14)); // NOI18N
+        closedSessionBtn.setForeground(new java.awt.Color(255, 255, 255));
+        closedSessionBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cerrar-sesion 32-px.png"))); // NOI18N
+        closedSessionBtn.setText("Logout");
+        closedSessionBtn.setBorderPainted(false);
+        closedSessionBtn.setDefaultCapable(false);
+        closedSessionBtn.setFocusPainted(false);
+        closedSessionBtn.setFocusable(false);
+        closedSessionBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        closedSessionBtn.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        closedSessionBtn.addMouseListener(new MouseAdapter() {
+            
             @Override
             public void mouseEntered(MouseEvent e) {
                 e.getComponent().setBackground(new Color(25, 129, 175));
@@ -82,11 +73,11 @@ public class Menu extends javax.swing.JPanel {
         registerBookingItem.setFocusPainted(false);
         registerBookingItem.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         registerBookingItem.addMouseListener(new MouseAdapter() {
+
             @Override
             public void mouseClicked(MouseEvent e) {
-                homeref.changePanelView();
+                openViewRegister();
             }
-
             @Override
             public void mouseEntered(MouseEvent e) {
                 e.getComponent().setBackground(new Color(25, 129, 175));
@@ -112,6 +103,10 @@ public class Menu extends javax.swing.JPanel {
         searchIconItem.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         searchIconItem.addMouseListener(new MouseAdapter() {
             @Override
+            public void mouseClicked(MouseEvent e) {
+               changeSection();
+            }
+            @Override
             public void mouseEntered(MouseEvent e) {
                 e.getComponent().setBackground(new Color(25, 129, 175));
             }
@@ -128,7 +123,7 @@ public class Menu extends javax.swing.JPanel {
         itemsContainer.setLayout(itemsContainerLayout);
         itemsContainerLayout.setHorizontalGroup(
                 itemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                        .addComponent(closedSessionBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
                         .addComponent(registerBookingItem, javax.swing.GroupLayout.Alignment.TRAILING,
                                 javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
                                 Short.MAX_VALUE)
@@ -144,7 +139,7 @@ public class Menu extends javax.swing.JPanel {
                                 .addComponent(searchIconItem, javax.swing.GroupLayout.PREFERRED_SIZE, 42,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                .addComponent(closedSessionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap()));
 
@@ -198,12 +193,16 @@ public class Menu extends javax.swing.JPanel {
         homeref.changePanelView();
 
     }
+    public void openViewRegister(){
+        homeref.openRegisterView();
+    }
 
-    private Home homeref;
+    private final Home homeref;
     private javax.swing.JPanel itemsContainer;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton closedSessionBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton registerBookingItem;
     private javax.swing.JButton searchIconItem;
+    
 }

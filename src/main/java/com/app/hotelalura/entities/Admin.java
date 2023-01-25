@@ -26,5 +26,7 @@ public class Admin extends Person {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    
 
 }

@@ -1,21 +1,21 @@
 package com.app.hotelalura.views;
 
 import java.awt.Color;
-import com.app.hotelalura.components.SearchSystem;
 import java.awt.BorderLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Home extends javax.swing.JPanel {
 
     public Home() {
         initComponents(this);
-        System.out.println("home");
     }
 
     private void initComponents(Home h) {
 
         backgroundPanel = new com.app.hotelalura.components.RoundedPanel();
         menu1 = new com.app.hotelalura.components.Menu(h);
-        jLabel1 = new javax.swing.JLabel();
+        closedWindow = new javax.swing.JLabel();
         container = new javax.swing.JPanel();
         defMenuView1 = new com.app.hotelalura.components.DefMenuView();
         searchSystem = new com.app.hotelalura.components.SearchSystem();
@@ -32,8 +32,16 @@ public class Home extends javax.swing.JPanel {
         menu1.setBackground(new java.awt.Color(25, 129, 175));
         backgroundPanel.add(menu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 600));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cerrar-24px.png"))); // NOI18N
-        backgroundPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 10, -1, -1));
+        closedWindow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cerrar-24px.png")));
+        closedWindow.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.exit(0);
+            }
+            
+        });
+        
+        backgroundPanel.add(closedWindow, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 10, -1, -1));
 
         container.setBackground(new java.awt.Color(255, 255, 0, 40));
         container.setForeground(new java.awt.Color(255, 255, 255));
@@ -65,13 +73,21 @@ public class Home extends javax.swing.JPanel {
             validate();
             container.repaint();
         }
-        
+    }
+    public void openRegisterView(){
+        registerBooking= new RegisterBooking(this);
+        registerBooking.setVisible(true);
+    }
+    public void closedRegisterView(){
+        registerBooking.setVisible(false);
+        registerBooking=null;
     }
 
     private com.app.hotelalura.components.RoundedPanel backgroundPanel;
     private javax.swing.JPanel container;
     private javax.swing.JPanel defMenuView1;
     private javax.swing.JPanel searchSystem;
-    private javax.swing.JLabel jLabel1;
-    private com.app.hotelalura.components.Menu menu1;
+    private javax.swing.JLabel closedWindow;
+    private javax.swing.JPanel menu1;
+    private javax.swing.JFrame registerBooking;
 }

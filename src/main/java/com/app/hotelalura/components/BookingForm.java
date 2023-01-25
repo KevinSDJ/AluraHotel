@@ -1,7 +1,10 @@
 
 package com.app.hotelalura.components;
 
+import com.app.hotelalura.views.RegisterBooking;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 
 /**
@@ -12,11 +15,16 @@ public class BookingForm extends javax.swing.JPanel {
 
     /**
      * Creates new form BookingForm
+     * @param r
      */
+    public BookingForm(RegisterBooking r) {
+        this.parentref=r;
+        initComponents();
+        extConfig();
+    }
     public BookingForm() {
         initComponents();
         setBackground(new Color(0,0,0,0));
-        setVisible(true);
         extConfig();
     }
 
@@ -43,19 +51,21 @@ public class BookingForm extends javax.swing.JPanel {
         nextStepBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
 
+        setPreferredSize(new java.awt.Dimension(838, 520));
+
         roundedPanel1.setBackground(new java.awt.Color(25, 129, 175));
         roundedPanel1.setMaximumSize(new java.awt.Dimension(830, 512));
         roundedPanel1.setPreferredSize(new java.awt.Dimension(830, 512));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("/home/kevinsdj/Escritorio/java-projects/HotelAlura/images/reservas-img-3.png")); // NOI18N
-
-        jLabel2.setIcon(new javax.swing.ImageIcon("/home/kevinsdj/Escritorio/java-projects/HotelAlura/images/Ha-100px.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reservas-img-3.png"))); // NOI18N
 
         roundedPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel3.setFont(new java.awt.Font("Nimbus Sans", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(25, 129, 175));
-        jLabel3.setText("Reservation System");
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Booking Record");
+        jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         inputDateIn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(25, 129, 175), 1, true));
         inputDateIn.setDateFormatString("yyyy-MM-dd");
@@ -117,26 +127,23 @@ public class BookingForm extends javax.swing.JPanel {
                 .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(roundedPanel2Layout.createSequentialGroup()
                         .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                         .addComponent(nextStepBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(valueField, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(inputDateIn, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(inputDateOut, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(roundedPanel2Layout.createSequentialGroup()
-                            .addGap(13, 13, 13)
-                            .addComponent(jLabel3))
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6)))
+                    .addComponent(valueField)
+                    .addComponent(inputDateIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(inputDateOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(62, Short.MAX_VALUE))
         );
         roundedPanel2Layout.setVerticalGroup(
             roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel2Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addGap(56, 56, 56)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addGap(47, 47, 47)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(inputDateIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -161,21 +168,23 @@ public class BookingForm extends javax.swing.JPanel {
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel1Layout.createSequentialGroup()
                 .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(187, 187, 187))))
+                        .addGap(187, 187, 187))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27))))
         );
         roundedPanel1Layout.setVerticalGroup(
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel1Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                .addGap(31, 31, 31)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
             .addComponent(roundedPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -183,12 +192,12 @@ public class BookingForm extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(roundedPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(roundedPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 836, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -207,16 +216,43 @@ public class BookingForm extends javax.swing.JPanel {
 
 
     private void extConfig(){
+        setBackground(new Color(0,0,0,0));
+        setSize(1024,600);
+        roundedPanel1.setSize(1024, 600);
         
         /* inputs*/
         inputDateIn.setDateFormatString("yyyy-MM-dd");
         inputDateIn.getCalendarButton().setIcon(new ImageIcon(BookingForm.class.getResource("/images/calendario.png")));
         inputDateOut.setDateFormatString("yyyy-MM-dd");
         inputDateOut.getCalendarButton().setIcon(new ImageIcon(BookingForm.class.getResource("/images/calendario.png")));
-        cancelBtn.setBackground(new Color(0,0,0,0));
         valueField.setEditable(false);
+        cancelBtn.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                cancelRecord();
+            }
+            
+        });
+        nextStepBtn.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                next();
+            }
+            
+        });
+        
     
     }
+    
+    private void cancelRecord(){
+        parentref.closedFormView();
+    }
+    
+    private void next(){
+        parentref.nextForm();
+    }
+    
+    private com.app.hotelalura.views.RegisterBooking parentref;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelBtn;
     private com.toedter.calendar.JDateChooser inputDateIn;
