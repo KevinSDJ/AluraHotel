@@ -1,6 +1,6 @@
 package com.app.hotelalura.utils.cript;
 
-import com.app.hotelalura.utils.enviroment.GetCredentialsDb;
+import com.app.hotelalura.utils.enviroment.EnvVariables;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -37,13 +37,9 @@ public class PasswordEncoderTest {
     
     @Test
     public void testEnviromentVar(){
-         try {
-            System.out.println(GetCredentialsDb.getSecret());
-            Assert.assertEquals(true,true);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            Assert.fail(ex.getMessage());
-        }
+       String d=EnvVariables.getEnv("SECRET");
+       Assert.assertEquals(true, !d.isEmpty());
+       Assert.fail("fail enviroment utils");
     }
     
 }

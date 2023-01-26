@@ -1,6 +1,6 @@
 package com.app.hotelalura.dbconn;
 
-import com.app.hotelalura.utils.enviroment.GetCredentialsDb;
+import com.app.hotelalura.utils.enviroment.EnvVariables;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
@@ -22,9 +22,9 @@ public class DbConn {
             Logger.getLogger(DbConn.class.getName()).log(Level.SEVERE, null, ex);
         }
         poolDataSource.setMaxPoolSize(10);
-        poolDataSource.setUser(GetCredentialsDb.getUser());
-        poolDataSource.setPassword(GetCredentialsDb.getPassword());
-        poolDataSource.setJdbcUrl(GetCredentialsDb.getUrl());
+        poolDataSource.setUser(EnvVariables.getEnv("MYSQL_USER"));
+        poolDataSource.setPassword(EnvVariables.getEnv("MYSQL_ROOT_PASSWORD"));
+        poolDataSource.setJdbcUrl(EnvVariables.getEnv("URL"));
         
         this.dataSource= poolDataSource;
     }

@@ -1,6 +1,5 @@
 package com.app.hotelalura.utils.cript;
 
-import com.app.hotelalura.utils.enviroment.GetCredentialsDb;
 import com.password4j.Hash;
 import com.password4j.HashChecker;
 import com.password4j.Password;
