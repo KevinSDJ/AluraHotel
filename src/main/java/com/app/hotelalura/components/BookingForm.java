@@ -5,6 +5,7 @@ import com.app.hotelalura.views.RegisterBooking;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
 import javax.swing.ImageIcon;
 
 /**
@@ -249,6 +250,8 @@ public class BookingForm extends javax.swing.JPanel {
     }
     
     private void next(){
+        //Date date= new Date(inputDateIn.getDate().getTime());
+        
         parentref.nextForm();
     }
     

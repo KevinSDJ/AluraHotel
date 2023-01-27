@@ -1,15 +1,18 @@
 package com.app.hotelalura.entities;
 
-import java.util.Date;
 
-public abstract class Person {
+import java.io.Serializable;
+import java.sql.Date;
 
+public class Person implements Serializable{
+    static final long serialVersionUID = 1L; 
+    
     private int id;
     private String first_name;
     private String surname;
-    private Date dateBirth;
+    private Date date_birth;
     private String nationality;
-    private long phone;
+    private String phone;
     
     public Person(){
     }
@@ -40,12 +43,12 @@ public abstract class Person {
         this.surname = surname;
     }
 
-    public Date getDateBirth() {
-        return dateBirth;
+    public Date getDate_birth() {
+        return date_birth;
     }
 
-    public void setDateBirth(Date dataBirth) {
-        this.dateBirth = dataBirth;
+    public void setDate_birth(Date dataBirth) {
+        this.date_birth = dataBirth;
     }
 
     public String getNationality() {
@@ -56,17 +59,17 @@ public abstract class Person {
         this.nationality = nationality;
     }
 
-    public long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
     
     @Override
     public String toString() {
-        return "Person{" + "id=" + id + ", name=" + first_name + ", surname=" + surname + ", dataBirth=" + dateBirth + ", nationality=" + nationality + ", phone=" + phone + '}';
+        return "Person{" + "id=" + id + ", name=" + first_name + ", surname=" + surname + ", dataBirth=" + date_birth + ", nationality=" + nationality + ", phone=" + phone + '}';
     }
 
 }

@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,15 +29,15 @@ public class BookingDAO implements ICrud<Booking, Integer> {
     public List<Booking> findAll() {
         try (Connection conn = DbConn.getConnection()) {
             List<Booking> result = new ArrayList<>();
-            String sql = String.format("SELECT * FROM %s", Booking.class.getName() + "s");
+            String sql = String.format("SELECT * FROM %s", Booking.class.getSimpleName());
             try (PreparedStatement st = conn.prepareStatement(sql)) {
                 st.execute();
                 ResultSet resultset = st.getResultSet();
                 while (resultset.next()) {
                     Booking booking = new Booking();
                     booking.setCode(resultset.getString("code"));
-                    booking.setDateIn(resultset.getString("dateIn"));
-                    booking.setDateOut(resultset.getString("dateOut"));
+                    booking.setDateIn(resultset.getDate("dateIn"));
+                    booking.setDateOut(resultset.getDate("dateOut"));
                     booking.setPrice(resultset.getDouble("price"));
                     booking.setPaymentMethod(resultset.getString("paymentMethod"));
                     result.add(booking);
@@ -52,21 +54,21 @@ public class BookingDAO implements ICrud<Booking, Integer> {
     }
 
     @Override
-    public Booking findOne(Integer id) {
-        Booking result = null;
+    public Optional<Booking> findOne(Integer id) {
+        Optional<Booking> result = null;
         try (Connection conn = DbConn.getConnection()) {
-            String sql = String.format("SELECT * FROM %s", Booking.class.getName() + "s");
+            String sql = String.format("SELECT * FROM %s", Booking.class.getSimpleName());
             try (PreparedStatement st = conn.prepareStatement(sql)) {
                 st.execute();
                 ResultSet resultset = st.getResultSet();
                 while (resultset.next()) {
                     Booking booking = new Booking();
                     booking.setCode(resultset.getString("code"));
-                    booking.setDateIn(resultset.getString("dateIn"));
-                    booking.setDateOut(resultset.getString("dateOut"));
+                    booking.setDateIn(resultset.getDate("dateIn"));
+                    booking.setDateOut(resultset.getDate("dateOut"));
                     booking.setPrice(resultset.getDouble("price"));
                     booking.setPaymentMethod(resultset.getString("paymentMethod"));
-                    result = booking;
+                    result= Optional.of(booking);
                 }
             }
         } catch (SQLException ex) {
@@ -79,37 +81,52 @@ public class BookingDAO implements ICrud<Booking, Integer> {
     }
 
     @Override
-    public Integer save(Booking o) {
+    public Integer save(Booking o) throws Exception {
+        UUID code=UUID.randomUUID();
+        Integer id=null;
+        o.setCode(code.toString());
         try (Connection conn = DbConn.getConnection()) {
-            String sql = "INSERT INTO Booking (dateIn,dateOut,price,paymentMethod) VALUES(?,?,?,?)";
+            String sql = "INSERT INTO Booking (code,dateIn,dateOut,price,paymentMethod) VALUES(?,?,?,?,?);";
+            System.out.println(sql);
             try (PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                st.setString(1, o.getDateIn());
-                st.setString(2, o.getDateOut());
-                st.setDouble(3, o.getPrice());
-                st.setString(4, o.getPaymentMethod());
+                st.setString(1,o.getCode());
+                st.setDate(2, o.getDateIn());
+                st.setDate(3, o.getDateOut());
+                st.setDouble(4, o.getPrice());
+                st.setString(5, o.getPaymentMethod());
                 st.execute();
                 ResultSet rst = st.getGeneratedKeys();
                 if (rst != null && rst.next()) {
-                    return rst.getInt(1);
+                    id= rst.getInt(1);
                 }
                  
-            } catch (SQLException ex) {
-                throw new SQLException(ex);
-            } catch (Exception ex) {
+            }catch (Exception ex) {
                 throw new Exception(ex);
             }
 
-        } catch (SQLException ex) {
-            Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new Exception(ex);
         }
-        return null;
+        return id;
     }
 
     @Override
-    public void delete(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void delete(Integer id) throws Exception {
+        try (Connection conn = DbConn.getConnection()) {
+            String sql = "DELETE FROM Booking b WHERE b.id=?";
+            try (PreparedStatement st = conn.prepareStatement(sql)){
+                
+                st.setInt(1, id);
+                st.execute();
+                 
+            }catch (Exception ex) {
+                throw new Exception(ex);
+            }
+        }catch (Exception ex) {
+            Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new Exception(ex);
+        }
     }
 
 }

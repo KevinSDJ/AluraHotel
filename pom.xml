@@ -23,10 +23,9 @@
             <version>1.6.3</version>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.8.0</version>
         </dependency>
         <dependency>
             <groupId>com.toedter</groupId>
@@ -53,6 +52,11 @@
             <artifactId>AbsoluteLayout</artifactId>
             <version>SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>unknown.binary</groupId>
+            <artifactId>MDTextInput-1.0.8-bin</artifactId>
+            <version>SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <build>
         <pluginManagement>
@@ -60,7 +64,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.19.1</version>
+                    <version>3.0.0-M5</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>

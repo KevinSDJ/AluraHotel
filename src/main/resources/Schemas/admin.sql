@@ -1,13 +1,10 @@
-CREATE TABLE if not exists Guest (id int auto_increment primary key,firstName VARCHAR(35),
-surname VARCHAR(25) NOT NULL UNIQUE,
-nationality VARCHAR(20) NOT NULL,
-dateBirth date,
-phone MEDIUMINT NOT NULL UNIQUE) type=InnoDb;
-
-CREATE TABLE if not exists Booking (
-id int auto_increment primary key,
-code varchar(36) default(uuid()) not null,
-dateIn datetime not null,
-dateOut datetime not null,
-price double not null,
-) type = InnoDb;
+CREATE TABLE Admin(
+id int auto_increment unique primary key not null,
+first_name varchar(15),
+surname varchar(10),
+date_birth datetime,
+nationality varchar(20),
+phone long not null,
+email varchar(40) not null unique,
+password varchar(40) not null
+) engine=InnoDb;

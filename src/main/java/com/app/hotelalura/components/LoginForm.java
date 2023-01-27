@@ -1,7 +1,7 @@
 package com.app.hotelalura.components;
 
-import com.app.hotelalura.contexts.StateMainContext;
-import com.app.hotelalura.contexts.ToggleChange;
+import com.app.hotelalura.views.Init;
+import com.app.hotelalura.views.Main;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -9,7 +9,9 @@ import java.awt.RenderingHints;
 
 public class LoginForm extends javax.swing.JPanel {
    
-    public LoginForm() {
+    public LoginForm(Init i,Main m) {
+        mainref=m;
+        initref=i;
         initComponents();
         setOpaque(false);
     }
@@ -31,8 +33,8 @@ public class LoginForm extends javax.swing.JPanel {
         inputUsername = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         passwordInput = new javax.swing.JPasswordField();
-        enterBtnLogin = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        enterBtn = new javax.swing.JButton();
+        cancelBtn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -63,28 +65,28 @@ public class LoginForm extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
         jLabel4.setText("Password");
 
-        enterBtnLogin.setBackground(new java.awt.Color(131, 197, 190));
-        enterBtnLogin.setFont(new java.awt.Font("Nimbus Sans", 0, 18)); // NOI18N
-        enterBtnLogin.setForeground(new java.awt.Color(255, 255, 255));
-        enterBtnLogin.setText("enter");
-        enterBtnLogin.setAlignmentY(0.0F);
-        enterBtnLogin.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        enterBtnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+        enterBtn.setBackground(new java.awt.Color(131, 197, 190));
+        enterBtn.setFont(new java.awt.Font("Nimbus Sans", 0, 18)); // NOI18N
+        enterBtn.setForeground(new java.awt.Color(255, 255, 255));
+        enterBtn.setText("enter");
+        enterBtn.setAlignmentY(0.0F);
+        enterBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        enterBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                enterBtnLoginMouseClicked(evt);
+                enterBtnMouseClicked(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(102, 102, 102));
-        jButton2.setFont(new java.awt.Font("Nimbus Sans", 0, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("cancel");
-        jButton2.setAlignmentY(0.0F);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setIconTextGap(1);
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        cancelBtn.setBackground(new java.awt.Color(102, 102, 102));
+        cancelBtn.setFont(new java.awt.Font("Nimbus Sans", 0, 18)); // NOI18N
+        cancelBtn.setForeground(new java.awt.Color(255, 255, 255));
+        cancelBtn.setText("cancel");
+        cancelBtn.setAlignmentY(0.0F);
+        cancelBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        cancelBtn.setIconTextGap(1);
+        cancelBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                cancelBtnMouseClicked(evt);
             }
         });
 
@@ -102,9 +104,9 @@ public class LoginForm extends javax.swing.JPanel {
                     .addComponent(jLabel4)
                     .addComponent(passwordInput, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(enterBtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(enterBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         roundedPanel2Layout.setVerticalGroup(
@@ -124,8 +126,8 @@ public class LoginForm extends javax.swing.JPanel {
                 .addComponent(passwordInput, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(75, 75, 75)
                 .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(enterBtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(enterBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38))
         );
 
@@ -137,7 +139,7 @@ public class LoginForm extends javax.swing.JPanel {
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel1Layout.createSequentialGroup()
                 .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(109, 109, 109))
         );
@@ -154,14 +156,15 @@ public class LoginForm extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
    
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        ToggleChange.changeState(false);
-    }//GEN-LAST:event_jButton2MouseClicked
+    private void cancelBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelBtnMouseClicked
 
-    private void enterBtnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_enterBtnLoginMouseClicked
-        ToggleChange.changeState(false);
-        StateMainContext.changeLoginState();
-    }//GEN-LAST:event_enterBtnLoginMouseClicked
+        initref.closedLogin();
+    }//GEN-LAST:event_cancelBtnMouseClicked
+
+    private void enterBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_enterBtnMouseClicked
+
+        initref.clsLogAndGoHom();
+    }//GEN-LAST:event_enterBtnMouseClicked
 
      @Override
     protected void paintComponent(Graphics g) {
@@ -174,10 +177,12 @@ public class LoginForm extends javax.swing.JPanel {
 
     }
 
+    private Main mainref;
+    private Init initref;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton enterBtnLogin;
+    private javax.swing.JButton cancelBtn;
+    private javax.swing.JButton enterBtn;
     private javax.swing.JTextField inputUsername;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

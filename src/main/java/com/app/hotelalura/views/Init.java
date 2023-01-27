@@ -1,20 +1,19 @@
 package com.app.hotelalura.views;
 
-import com.app.hotelalura.contexts.ToggleChange;
-import com.app.hotelalura.utils.base.Observer;
+import com.app.hotelalura.components.statusConnection.StatusConnection;
 import java.awt.Color;
 import javax.swing.JFrame;
 
-public class Init extends javax.swing.JPanel implements Observer<Boolean> {
+public class Init extends javax.swing.JPanel {
 
     
-    public Init() {
-        initComponents();
-        ToggleChange.addObserver(this);
+    public Init(Main m){
+        mainref=m;
+        initComponents(m,this);
+        setEnabled(false);
     }
 
-    private void initComponents() {
-
+    private void initComponents(Main m,Init i) {
         
         backgroundBlue = new com.app.hotelalura.components.RoundedPanel();
         receptionImg = new javax.swing.JLabel();
@@ -23,7 +22,8 @@ public class Init extends javax.swing.JPanel implements Observer<Boolean> {
         hotelIcon = new javax.swing.JLabel();
         loginBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        loginWindow=new LoginWindow();
+        loginWindow=new LoginWindow(m,i);
+        statusConnection= new StatusConnection();
 
         setBackground(new Color(0,0,0,0));
         setSize(1024,600);
@@ -102,7 +102,12 @@ public class Init extends javax.swing.JPanel implements Observer<Boolean> {
         jLabel3.setFont(new java.awt.Font("Nimbus Sans", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Developed by Kevin De Jesus  © 2023");
+        statusConnection.setBackground(new Color(0,0,0,0));
         backgroundBlue.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 557, 337, 29));
+        /* posicionamiento de componente */
+        /* los espacios son donde va a ceber el elemento en anchura*/
+        /*espacion -x, position y, espacio x+, position x */
+        backgroundBlue.add(statusConnection, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 557, 170, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -116,19 +121,28 @@ public class Init extends javax.swing.JPanel implements Observer<Boolean> {
         );
     }
 
-    private void closeWindowMouseClicked(java.awt.event.MouseEvent evt) {
-        
+    private void closeWindowMouseClicked(java.awt.event.MouseEvent evt) {    
         System.exit(0);
     }
-
+    
+    public void closedLogin(){
+        loginWindow.setVisible(false);
+    }
     
     private void loginBtnMouseClicked(java.awt.event.MouseEvent evt) {
         loginWindow.setVisible(true);
         
     }
+    public void clsLogAndGoHom(){
+        loginWindow.setVisible(false);
+        mainref.goHome();
+    }
 
 
+
+    private Main mainref;
     private JFrame loginWindow;
+    private StatusConnection statusConnection;
     private javax.swing.JLabel receptionImg;
     private javax.swing.JLabel closeWindow;
     private javax.swing.JLabel jLabel3;
@@ -136,10 +150,5 @@ public class Init extends javax.swing.JPanel implements Observer<Boolean> {
     private javax.swing.JButton loginBtn;
     private com.app.hotelalura.components.RoundedPanel backgroundBlue;
     private com.app.hotelalura.components.RoundedPanel backgroundWhite;
-    // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void update(Boolean o) {
-        loginWindow.setVisible(false);
-    }
+   
 }

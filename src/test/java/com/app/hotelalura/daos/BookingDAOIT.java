@@ -1,107 +1,88 @@
 package com.app.hotelalura.daos;
 
 import com.app.hotelalura.entities.Booking;
-import java.sql.SQLException;
+import java.sql.Date;
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
 
-/**
- *
- * @author kevinsdj
- */
+
 public class BookingDAOIT {
-
+    private final BookingDAO bookingDao=BookingDAO.getInstance();
+    private Integer idtemp;
     public BookingDAOIT() {
     }
 
     @Test
     public void testGetInstance() {
+        UUID code= UUID.randomUUID();
         System.out.println("getInstance");
-        BookingDAO expResult = null;
-        BookingDAO result = BookingDAO.getInstance();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println(code.toString());
+        assertEquals(false,bookingDao==null);
+        fail("Instance not build");
     }
 
-    /**
-     * Test of findAll method, of class BookingDAO.
-     */
+  
     @Test
     public void testFindAll() {
         System.out.println("findAll");
-        BookingDAO instance = null;
-        List<Booking> expResult = null;
-        List<Booking> result = instance.findAll();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+  
+        List<Booking> result = bookingDao.findAll();
+        assertEquals(!result.isEmpty(), !result.isEmpty());
+        fail("FindAll not return expect, return null");
     }
 
-    /**
-     * Test of findOne method, of class BookingDAO.
-     */
+
     @Test
     public void testFindOne() {
         System.out.println("findOne");
-        int id = 1;
-        BookingDAO instance = null;
-        Booking expResult = null;
-        Booking result = instance.findOne(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        Optional<Booking> result = bookingDao.findOne(idtemp);
+        assertEquals(true, result.isPresent());
+   
+        fail("Booking not found");
     }
 
-    /**
-     * Test of save method, of class BookingDAO.
-     */
     @Test
     public void testSave() {
         Booking booking = new Booking();
-        booking.setDateIn("18/01/2023");
-        booking.setDateOut("28/01/2023");
+        booking.setDateIn(new Date(System.currentTimeMillis()));
+        booking.setDateOut(new Date(System.currentTimeMillis()+3603000));
         booking.setPrice(123.01);
         booking.setPaymentMethod("Credit Card");
 
-        BookingDAO bookingdao = BookingDAO.getInstance();
-        int save = bookingdao.save(booking);
-        assertEquals(true,save);
-        fail("fail in save Booking");
+        int save;
+        try {
+            save = bookingDao.save(booking);
+            idtemp=save;
+            if(idtemp==null){
+                throw new Exception("Booking not save");
+            }
+            assertEquals(true,(idtemp!=null&&idtemp>0));
+        } catch (Exception ex) {
+            Logger.getLogger(BookingDAOIT.class.getName()).log(Level.SEVERE, null, ex);
+             fail("fail in save Booking");
+        }
 
     }
-
-    /**
-     * Test of delete method, of class BookingDAO.
-     */
+    
     @Test
     public void testDelete() {
         System.out.println("delete");
-        int id = 1;
-        BookingDAO instance = null;
-        instance.delete(id);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testSaveBooking() {
-        Booking booking = new Booking();
-        booking.setDateIn("18/01/2023");
-        booking.setDateOut("28/01/2023");
-        booking.setPrice(123.01);
-        booking.setPaymentMethod("Credit Card");
-
-        BookingDAO bookingdao = BookingDAO.getInstance();
-        int save = bookingdao.save(booking);
-        assertEquals(true,save);
-        fail("fail in save Booking");
-
+      
+        try {
+            bookingDao.delete(idtemp);
+        } catch (Exception ex) {
+            Logger.getLogger(BookingDAOIT.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getMessage());
+            
+        }
+        
     }
 
 }

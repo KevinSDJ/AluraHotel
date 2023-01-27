@@ -1,11 +1,9 @@
 package com.app.hotelalura;
 
+import com.app.hotelalura.components.statusConnection.StatusBox;
 import com.app.hotelalura.dbconn.DbConn;
 import com.app.hotelalura.views.Main;
 import java.sql.Connection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 public class HotelAlura {
 
@@ -15,15 +13,15 @@ public class HotelAlura {
         Main main = new Main();
         main.setVisible(true);
         main.setEnabled(false);
-        JOptionPane op= new JOptionPane();
-        try (Connection conn=DbConn.getConnection()){
+        try(Connection conn= DbConn.getConnection()){
             conn.close();
+            StatusBox.getInstance().geSubj().updateSuccess();
             main.setEnabled(true);
-        } catch (Exception ex) {
-            Logger.getLogger(HotelAlura.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(main, "Database not connect","error",0);
+        }catch(Exception ex){
+            StatusBox.getInstance().geSubj().updateFail();
             System.exit(0);
         }
+       
     }
 
 }

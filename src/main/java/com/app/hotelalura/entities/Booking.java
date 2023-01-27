@@ -1,9 +1,25 @@
 package com.app.hotelalura.entities;
 
+import java.io.Serializable;
+import java.sql.Date;
 
 
-public class Booking {
+public class Booking implements Serializable{
 
+    static final long serialVersionUID = 23L;
+
+    private int id;
+    private String code;
+    private Date dateIn;
+    private Date dateOut;
+    private Double price;
+    private String paymentMethod;
+
+    public Booking() {
+    }
+
+    
+    
     public int getId() {
         return id;
     }
@@ -11,13 +27,7 @@ public class Booking {
     public void setId(int id) {
         this.id = id;
     }
-
-    private int id;
-    private String code;
-    private String dateIn;
-    private String dateOut;
-    private Double price;
-
+    
     public Double getPrice() {
         return price;
     }
@@ -25,11 +35,6 @@ public class Booking {
     public void setPrice(Double price) {
         this.price = price;
     }
-    private String paymentMethod;
-
-    public Booking() {
-    }
-
     
     public String getCode() {
         return code;
@@ -39,19 +44,19 @@ public class Booking {
         this.code = code;
     }
     
-    public String getDateIn() {
+    public Date getDateIn() {
         return dateIn;
     }
 
-    public void setDateIn(String dateIn) {
+    public void setDateIn(Date dateIn) {
         this.dateIn = dateIn;
     }
 
-    public String getDateOut() {
+    public Date getDateOut() {
         return dateOut;
     }
 
-    public void setDateOut(String dateOut) {
+    public void setDateOut(Date dateOut) {
         this.dateOut = dateOut;
     }
 

@@ -6,6 +6,7 @@ package com.app.hotelalura.components;
 
 import com.formdev.flatlaf.FlatLightLaf;
 
+
 /**
  *
  * @author kevinsdj
@@ -18,7 +19,6 @@ public class SearchSystem extends javax.swing.JPanel {
     public SearchSystem() {
         FlatLightLaf.setup();
         initComponents();
-        
     }
 
     /**
