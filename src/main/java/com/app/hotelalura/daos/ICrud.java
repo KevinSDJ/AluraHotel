@@ -5,10 +5,6 @@ import java.util.Optional;
 
 public interface ICrud <T,V> {
     /**
-     * Solo realice esta interfaz por cuestion de tiempo,
-     * pero lo ideal seria realizar una clase crud donde 
-     * mapee los atributos y clases sin tener que repetir codigo 
-     * en cada dao
      * @return 
      * @throws java.lang.Exception
     */

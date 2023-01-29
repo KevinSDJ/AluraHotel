@@ -1,6 +1,7 @@
 package com.app.hotelalura.daos;
 
 import com.app.hotelalura.dbconn.DbConn;
+import com.app.hotelalura.dto.AdminDTO;
 import com.app.hotelalura.entities.Admin;
 import com.app.hotelalura.utils.cript.PasswordEncoder;
 import java.sql.Connection;
@@ -89,14 +90,13 @@ public class AdminDAO implements ICrud<Admin, Integer>{
     public Integer save(Admin o) throws Exception {
         Integer id=null;
         try (Connection conn = DbConn.getConnection()) {
-            String sql = "INSERT INTO Admin (email,password,phone) VALUES(?,?,?)";
+            String sql = "INSERT INTO Admin (email,password) VALUES(?,?)";
             String password=o.getPassword();
             /* encript password , never save password in text plain*/
             o.setPassword(PasswordEncoder.getUtils().encode(password));
             try (PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 st.setString(1, o.getEmail());
                 st.setString(2, o.getPassword());
-                st.setString(3, o.getPhone());
                 st.execute();
                 ResultSet rst = st.getGeneratedKeys();
                 if (rst != null && rst.next()) {
@@ -127,10 +127,51 @@ public class AdminDAO implements ICrud<Admin, Integer>{
                 throw new Exception(ex);
             }
         }catch (Exception ex) {
-            Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminDAO.class.getName()).log(Level.SEVERE, null, ex);
             throw new Exception(ex);
         }
     }
+    public Optional<AdminDTO> findByEmail(String email) throws Exception{
+        Optional<AdminDTO> logindta=Optional.empty();
+        try (Connection conn = DbConn.getConnection()) {
+            String sql = "SELECT a.email,a.password FROM Admin a WHERE a.email=?";
+            try (PreparedStatement st = conn.prepareStatement(sql)){
+                
+                st.setString(1, email);
+                st.execute();
+                ResultSet rst= st.getResultSet();
+                while(rst.next()){
+                    logindta= Optional.of(new AdminDTO(rst.getString("email"),rst.getString("password")));
+                }
+                 
+            }catch (Exception ex) {
+                throw new Exception(ex);
+            }
+        }catch (Exception ex) {
+            Logger.getLogger(AdminDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new Exception(ex);
+        }
+        return logindta;
+    }
+    public Integer countUsers() throws Exception{
+        Integer count=0;
+        try (Connection conn = DbConn.getConnection()) {
+            String sql = "SELECT count(*) FROM Admin";
+            try (PreparedStatement st = conn.prepareStatement(sql)){
+                
+                ResultSet rst=st.executeQuery();
+                rst.next();
+                count= rst.getInt(1);
+                 
+            }catch (Exception ex) {
+                throw new Exception(ex);
+            }
+        }catch (Exception ex) {
+            Logger.getLogger(AdminDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new Exception(ex);
+        }
     
+        return count;
+    }
     
 }

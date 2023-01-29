@@ -6,15 +6,14 @@ import java.awt.GridBagLayout;
 
 public class LoginWindow extends javax.swing.JFrame {
     
-    public LoginWindow(Main m,Init i) {
+    public LoginWindow(Init i) {
         initref=i;
-        mainref=m;
-        initComponents(m,i);
+        initComponents(i);
         
     }
     
-    private void initComponents(Main m,Init i) {
-        loginForm= new LoginForm(i,m);
+    private void initComponents(Init i) {
+        loginForm= new LoginForm(i);
         setUndecorated(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new Color(0,0,0,80));
@@ -27,10 +26,9 @@ public class LoginWindow extends javax.swing.JFrame {
     public static void main(String args[]) {
         
         java.awt.EventQueue.invokeLater(()->
-                new LoginWindow(mainref,initref).setVisible(true));
+                new LoginWindow(initref).setVisible(true));
     }
     private com.app.hotelalura.components.LoginForm loginForm;
     private static Init initref;
-    private static Main mainref;
 
 }

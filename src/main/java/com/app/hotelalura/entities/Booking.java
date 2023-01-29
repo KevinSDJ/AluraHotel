@@ -2,6 +2,7 @@ package com.app.hotelalura.entities;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.UUID;
 
 
 public class Booking implements Serializable{
@@ -14,8 +15,19 @@ public class Booking implements Serializable{
     private Date dateOut;
     private Double price;
     private String paymentMethod;
+    private int guest_id;
+
+    public int getGuest_id() {
+        return guest_id;
+    }
+
+    public void setGuest_id(int guest_id) {
+        this.guest_id = guest_id;
+    }
 
     public Booking() {
+        UUID uuid_auto= UUID.randomUUID();
+        code=uuid_auto.toString();
     }
 
     

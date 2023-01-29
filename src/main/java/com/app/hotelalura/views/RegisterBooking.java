@@ -1,5 +1,6 @@
 package com.app.hotelalura.views;
 
+import com.app.hotelalura.entities.Guest;
 import java.awt.Color;
 import java.awt.GridBagLayout;
 
@@ -48,7 +49,7 @@ public class RegisterBooking extends javax.swing.JFrame  {
         current.setVisible(true);
         validate();
         repaint();
-        System.out.println(current.getSize());
+        guestForm.update();
         
     }
     public void previusForm(){
@@ -59,13 +60,20 @@ public class RegisterBooking extends javax.swing.JFrame  {
         current.setVisible(true);
         validate();
         repaint();
-        System.out.println(current.getSize());
     }
     
     public void closedFormView(){
+        guestForm=null;
         homeref.closedRegisterView();
     }
-
+    public Guest updateDataForm(){
+        if(dataForm==null){
+            dataForm= new Guest();
+        }
+        return dataForm;
+    }
+    
+    private Guest dataForm;
     private static Home homeref;
     private javax.swing.JPanel container;
     private javax.swing.JPanel current;

@@ -1,6 +1,8 @@
 package com.app.hotelalura.daos;
 
+import com.app.hotelalura.dto.AdminDTO;
 import com.app.hotelalura.entities.Admin;
+import com.app.hotelalura.utils.cript.PasswordEncoder;
 import java.util.List;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -99,5 +101,32 @@ public class AdminDAOIT {
         }
         
     }
+    @Test
+    @Order(6)
+    public void testFindByEmail(){
+        System.out.println("find by email");
+        try {
+            Optional<AdminDTO> d=adminDao.findByEmail("sebadjkevin@gmail.com");
+            System.out.println(d);
+            assertEquals(true, d.isPresent());
 
+        } catch (Exception ex) {
+            fail(ex.getMessage());
+        }
+    }
+
+    @Test
+    @Order(7)
+    public void testComparePassword(){
+        System.out.println("test password ");
+        try {
+            String passwordInput= "dsdassadsad";
+            Optional<AdminDTO> d=adminDao.findByEmail("sebadjkevin@gmail.com");
+            Boolean isValid= PasswordEncoder.getUtils().compare(passwordInput, d.get().password());
+            assertEquals(false, isValid);
+
+        } catch (Exception ex) {
+            fail(ex.getMessage());
+        }
+    }
 }

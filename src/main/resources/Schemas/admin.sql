@@ -1,10 +1,13 @@
-CREATE TABLE Admin(
+use hotelalura;
+drop table Admin;
+
+CREATE TABLE if not exists Admin(
 id int auto_increment unique primary key not null,
-first_name varchar(15),
+firstName varchar(15),
 surname varchar(10),
-date_birth datetime,
+dateBirth date,
 nationality varchar(20),
-phone long not null,
+phone varchar(40),
 email varchar(40) not null unique,
-password varchar(40) not null
-) engine=InnoDb;
+password varchar(200) not null
+) engine=InnoDB;

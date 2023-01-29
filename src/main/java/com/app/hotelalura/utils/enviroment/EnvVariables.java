@@ -8,6 +8,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EnvVariables {
+    /**
+     * As for the environment variable, 
+     * the mapper was implemented by me, yes it's a bit fart but it works
+     * not add comments in the env file please XD 
+     */
      private  Map<String,String> env;
      private final static EnvVariables instance=new EnvVariables();
      

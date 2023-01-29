@@ -1,11 +1,15 @@
-
 package com.app.hotelalura.components;
 
+import com.app.hotelalura.entities.Booking;
+import com.app.hotelalura.utils.enviroment.EnvVariables;
 import com.app.hotelalura.views.RegisterBooking;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
 
 /**
@@ -16,16 +20,18 @@ public class BookingForm extends javax.swing.JPanel {
 
     /**
      * Creates new form BookingForm
+     *
      * @param r
      */
     public BookingForm(RegisterBooking r) {
-        this.parentref=r;
+        this.parentref = r;
         initComponents();
         extConfig();
     }
+
     public BookingForm() {
         initComponents();
-        setBackground(new Color(0,0,0,0));
+        setBackground(new Color(0, 0, 0, 0));
         extConfig();
     }
 
@@ -51,6 +57,8 @@ public class BookingForm extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         nextStepBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
+        paymentMethodInput = new javax.swing.JComboBox<>();
+        paymentLabel = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(838, 520));
 
@@ -71,10 +79,20 @@ public class BookingForm extends javax.swing.JPanel {
         inputDateIn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(25, 129, 175), 1, true));
         inputDateIn.setDateFormatString("yyyy-MM-dd");
         inputDateIn.setIcon(null);
+        inputDateIn.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                inputDateInchange(evt);
+            }
+        });
 
         inputDateOut.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(25, 129, 175), 1, true));
         inputDateOut.setDateFormatString("yyyy-MM-dd");
         inputDateOut.setIcon(null);
+        inputDateOut.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                onchangedateOutInput(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Nimbus Sans", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
@@ -85,6 +103,7 @@ public class BookingForm extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
         jLabel5.setText("Departure date");
 
+        valueField.setEditable(false);
         valueField.setText("$");
         valueField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,24 +138,33 @@ public class BookingForm extends javax.swing.JPanel {
             }
         });
 
+        paymentMethodInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CREDIT CARD", "CARD DEBIT", "EFFECTIVE" }));
+
+        paymentLabel.setFont(new java.awt.Font("Nimbus Sans", 1, 14)); // NOI18N
+        paymentLabel.setForeground(new java.awt.Color(102, 102, 102));
+        paymentLabel.setText("Payment Method");
+
         javax.swing.GroupLayout roundedPanel2Layout = new javax.swing.GroupLayout(roundedPanel2);
         roundedPanel2.setLayout(roundedPanel2Layout);
         roundedPanel2Layout.setHorizontalGroup(
             roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel2Layout.createSequentialGroup()
                 .addGap(49, 49, 49)
-                .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(roundedPanel2Layout.createSequentialGroup()
-                        .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                        .addComponent(nextStepBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(valueField)
-                    .addComponent(inputDateIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(inputDateOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(paymentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(valueField)
+                        .addComponent(inputDateIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(inputDateOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, roundedPanel2Layout.createSequentialGroup()
+                            .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                            .addComponent(nextStepBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(paymentMethodInput, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(62, Short.MAX_VALUE))
         );
         roundedPanel2Layout.setVerticalGroup(
@@ -144,23 +172,27 @@ public class BookingForm extends javax.swing.JPanel {
             .addGroup(roundedPanel2Layout.createSequentialGroup()
                 .addGap(56, 56, 56)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
+                .addGap(29, 29, 29)
                 .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(inputDateIn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(inputDateIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
                 .addComponent(jLabel5)
-                .addGap(18, 18, 18)
-                .addComponent(inputDateOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(inputDateOut, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(valueField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(valueField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addComponent(paymentLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(paymentMethodInput, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nextStepBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(37, 37, 37))
         );
 
         javax.swing.GroupLayout roundedPanel1Layout = new javax.swing.GroupLayout(roundedPanel1);
@@ -169,7 +201,7 @@ public class BookingForm extends javax.swing.JPanel {
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel1Layout.createSequentialGroup()
                 .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -193,7 +225,7 @@ public class BookingForm extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(roundedPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 836, Short.MAX_VALUE)
+            .addComponent(roundedPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 838, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,46 +247,76 @@ public class BookingForm extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cancelBtnActionPerformed
 
+    private void onchangedateOutInput(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_onchangedateOutInput
+        // TODO add your handling code here:
+        if (inputDateIn.getDate() != null && inputDateOut.getDate() != null) {
+            long dayspass = inputDateOut.getDate().getTime() - inputDateIn.getDate().getTime();
+            String price = EnvVariables.getEnv("PRICE_PER_NIGTH");
+            int priceTotal = (int) (Math.round(dayspass / 86400000) * Integer.parseInt(price));
+            valueField.setText(String.valueOf(priceTotal));
+            booking = new Booking();
+            booking.setPrice((double) priceTotal);
+            nextStepBtn.setEnabled(true);
 
-    private void extConfig(){
-        setBackground(new Color(0,0,0,0));
-        setSize(1024,600);
+        }
+    }//GEN-LAST:event_onchangedateOutInput
+
+    private void inputDateInchange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_inputDateInchange
+        // TODO add your handling code here:
+        if (inputDateIn.getDate() != null) {
+            inputDateOut.setMinSelectableDate(new Date(inputDateIn.getDate().getTime() + 86400000));
+        }
+    }//GEN-LAST:event_inputDateInchange
+
+    private void extConfig() {
+        setBackground(new Color(0, 0, 0, 0));
+        setSize(1024, 600);
         roundedPanel1.setSize(1024, 600);
-        
+        nextStepBtn.setEnabled(false);
         /* inputs*/
+        inputDateIn.setMinSelectableDate(Date.valueOf(LocalDate.now()));
         inputDateIn.setDateFormatString("yyyy-MM-dd");
         inputDateIn.getCalendarButton().setIcon(new ImageIcon(BookingForm.class.getResource("/images/calendario.png")));
         inputDateOut.setDateFormatString("yyyy-MM-dd");
         inputDateOut.getCalendarButton().setIcon(new ImageIcon(BookingForm.class.getResource("/images/calendario.png")));
         valueField.setEditable(false);
-        cancelBtn.addMouseListener(new MouseAdapter(){
+        cancelBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 cancelRecord();
             }
-            
+
         });
-        nextStepBtn.addMouseListener(new MouseAdapter(){
+        nextStepBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+
                 next();
             }
-            
+
         });
-        
-    
+
     }
-    
-    private void cancelRecord(){
+
+    private void cancelRecord() {
         parentref.closedFormView();
     }
-    
-    private void next(){
-        //Date date= new Date(inputDateIn.getDate().getTime());
-        
-        parentref.nextForm();
+
+    private void next() {
+        if (nextStepBtn.isEnabled()) {
+            booking.setDateIn(new Date(inputDateIn.getDate().getTime()));
+            booking.setDateOut(new Date(inputDateOut.getDate().getTime()));
+            booking.setPaymentMethod(paymentMethodInput.getSelectedItem().toString());
+            List<Booking> d = new ArrayList<>();
+            d.add(booking);
+            parentref.updateDataForm().setBooking(d);
+
+            parentref.nextForm();
+        }
+
     }
-    
+
+    private Booking booking;
     private com.app.hotelalura.views.RegisterBooking parentref;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelBtn;
@@ -267,6 +329,8 @@ public class BookingForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JButton nextStepBtn;
+    private javax.swing.JLabel paymentLabel;
+    private javax.swing.JComboBox<String> paymentMethodInput;
     private com.app.hotelalura.components.RoundedPanel roundedPanel1;
     private com.app.hotelalura.components.RoundedPanel roundedPanel2;
     private javax.swing.JTextField valueField;

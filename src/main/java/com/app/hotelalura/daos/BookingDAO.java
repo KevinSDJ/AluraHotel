@@ -86,7 +86,7 @@ public class BookingDAO implements ICrud<Booking, Integer> {
         Integer id=null;
         o.setCode(code.toString());
         try (Connection conn = DbConn.getConnection()) {
-            String sql = "INSERT INTO Booking (code,dateIn,dateOut,price,paymentMethod) VALUES(?,?,?,?,?);";
+            String sql = "INSERT INTO Booking (code,dateIn,dateOut,price,paymentMethod,guest_id) VALUES(?,?,?,?,?,?);";
             System.out.println(sql);
             try (PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 st.setString(1,o.getCode());
@@ -94,6 +94,7 @@ public class BookingDAO implements ICrud<Booking, Integer> {
                 st.setDate(3, o.getDateOut());
                 st.setDouble(4, o.getPrice());
                 st.setString(5, o.getPaymentMethod());
+                st.setInt(6,o.getGuest_id());
                 st.execute();
                 ResultSet rst = st.getGeneratedKeys();
                 if (rst != null && rst.next()) {

@@ -79,11 +79,9 @@ public class StatusConnection extends javax.swing.JPanel {
     public void updateSuccess(){
         jLabel1.setText("Connected");
         ovalPanel2.setBackground(Color.GREEN);
-        repaint();
     }
     public void updateFail(){
         jLabel1.setText("Fail connection");
-        repaint();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

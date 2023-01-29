@@ -22,7 +22,7 @@ public class Init extends javax.swing.JPanel {
         hotelIcon = new javax.swing.JLabel();
         loginBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        loginWindow=new LoginWindow(m,i);
+        loginWindow=new LoginWindow(i);
         statusConnection= new StatusConnection();
 
         setBackground(new Color(0,0,0,0));

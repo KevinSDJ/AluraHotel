@@ -1,22 +1,26 @@
 package com.app.hotelalura.components;
 
+import com.app.hotelalura.controllers.BookingCtrl;
+import com.app.hotelalura.controllers.GuestCtrl;
+import com.app.hotelalura.dto.BookingDTO;
+import com.app.hotelalura.dto.GuestDTO;
 import com.app.hotelalura.views.RegisterBooking;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
 import javax.swing.ImageIcon;
 
-/**
- *
- * @author kevinsdj
- */
+
 public class GuestForm extends javax.swing.JPanel {
 
     /**
      * Creates new form GuestForm
      */
     public GuestForm(RegisterBooking r) {
+        guestCtrl=GuestCtrl.getInstance();
+        bookingCtrl= BookingCtrl.getInstance();
         parentref=r;
         initComponents();
         setBackground(new Color(0,0,0,0));
@@ -46,13 +50,13 @@ public class GuestForm extends javax.swing.JPanel {
         nameInput = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         surnameInput = new javax.swing.JTextField();
-        birth = new com.toedter.calendar.JDateChooser();
+        dateBirthInput = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        nationalityInput = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         phoneInput = new javax.swing.JTextField();
-        phoneInput1 = new javax.swing.JTextField();
+        reservationCode = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         backBtn = new javax.swing.JButton();
         saveBtn = new javax.swing.JButton();
@@ -87,9 +91,9 @@ public class GuestForm extends javax.swing.JPanel {
         jLabel5.setText("Surname");
         jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
-        birth.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(25, 129, 175), 1, true));
-        birth.setDateFormatString("yyyy-MM-dd");
-        birth.setIcon(null);
+        dateBirthInput.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(25, 129, 175), 1, true));
+        dateBirthInput.setDateFormatString("yyyy-MM-dd");
+        dateBirthInput.setIcon(null);
 
         jLabel6.setFont(new java.awt.Font("Nimbus Sans", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(102, 102, 102));
@@ -101,7 +105,7 @@ public class GuestForm extends javax.swing.JPanel {
         jLabel7.setText("Nationality");
         jLabel7.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        nationalityInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel8.setFont(new java.awt.Font("Nimbus Sans", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(102, 102, 102));
@@ -114,9 +118,10 @@ public class GuestForm extends javax.swing.JPanel {
             }
         });
 
-        phoneInput1.addActionListener(new java.awt.event.ActionListener() {
+        reservationCode.setEditable(false);
+        reservationCode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                phoneInput1ActionPerformed(evt);
+                reservationCodeActionPerformed(evt);
             }
         });
 
@@ -135,6 +140,12 @@ public class GuestForm extends javax.swing.JPanel {
         saveBtn.setForeground(new java.awt.Color(255, 255, 255));
         saveBtn.setText("save");
         saveBtn.setBorderPainted(false);
+        saveBtn.setEnabled(false);
+        saveBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onClickSaveBtn(evt);
+            }
+        });
 
         javax.swing.GroupLayout roundedPanel2Layout = new javax.swing.GroupLayout(roundedPanel2);
         roundedPanel2.setLayout(roundedPanel2Layout);
@@ -144,7 +155,7 @@ public class GuestForm extends javax.swing.JPanel {
                 .addGap(38, 38, 38)
                 .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(phoneInput1)
+                    .addComponent(reservationCode)
                     .addComponent(jLabel9)
                     .addComponent(phoneInput)
                     .addComponent(jLabel8)
@@ -154,8 +165,8 @@ public class GuestForm extends javax.swing.JPanel {
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nameInput)
-                    .addComponent(birth, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dateBirthInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nationalityInput, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(roundedPanel2Layout.createSequentialGroup()
                         .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
@@ -178,11 +189,11 @@ public class GuestForm extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(birth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(dateBirthInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nationalityInput, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -190,7 +201,7 @@ public class GuestForm extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(phoneInput1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(reservationCode, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -239,16 +250,39 @@ public class GuestForm extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_phoneInputActionPerformed
 
-    private void phoneInput1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneInput1ActionPerformed
+    private void reservationCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservationCodeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_phoneInput1ActionPerformed
+    }//GEN-LAST:event_reservationCodeActionPerformed
+
+    private void onClickSaveBtn(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onClickSaveBtn
+        // TODO add your handling code here:
+       Boolean isDateBirth=dateBirthInput.getDate()==null;
+       Boolean notName=nameInput.getText().isEmpty();
+       Boolean notSurname=surnameInput.getText().isEmpty();
+       Boolean notPhone= phoneInput.getText().isEmpty();
+       if(!isDateBirth&&!notName&&!notSurname&&!notPhone){
+           parentref.updateDataForm().setFirst_name(nameInput.getText());
+           parentref.updateDataForm().setSurname(surnameInput.getText());
+           parentref.updateDataForm().setDate_birth(new Date(dateBirthInput.getDate().getTime()));
+           parentref.updateDataForm().setPhone(phoneInput.getText());
+           parentref.updateDataForm().setNationality(String.valueOf(nationalityInput.getSelectedItem()));
+           saveBtn.setEnabled(true);
+           GuestDTO g= new GuestDTO(this.parentref.updateDataForm());
+           Integer id=guestCtrl.saveGuest(g);
+           if(id!=null){
+               parentref.updateDataForm().getBooking().get(0).setGuest_id(id);
+               bookingCtrl.saveBooking(new BookingDTO(this,parentref.updateDataForm().getBooking().get(0)));
+           }
+           parentref.closedFormView();
+       }
+    }//GEN-LAST:event_onClickSaveBtn
 
     private void extConfig(){
         setSize(830,512);
         setMaximumSize(new Dimension(830,512));
         /* inputs*/
-        birth.setDateFormatString("yyyy-MM-dd");
-        birth.getCalendarButton().setIcon(new ImageIcon(BookingForm.class.getResource("/images/calendario.png")));
+        dateBirthInput.setDateFormatString("yyyy-MM-dd");
+        dateBirthInput.getCalendarButton().setIcon(new ImageIcon(BookingForm.class.getResource("/images/calendario.png")));
         backBtn.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -256,14 +290,17 @@ public class GuestForm extends javax.swing.JPanel {
             }
             
         });
+        
     
+    }
+    public void update(){
+        reservationCode.setText(parentref.updateDataForm().getBooking().get(0).getCode());
     }
 
     private com.app.hotelalura.views.RegisterBooking parentref;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
-    private com.toedter.calendar.JDateChooser birth;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private com.toedter.calendar.JDateChooser dateBirthInput;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -273,11 +310,14 @@ public class GuestForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField nameInput;
+    private javax.swing.JComboBox<String> nationalityInput;
     private javax.swing.JTextField phoneInput;
-    private javax.swing.JTextField phoneInput1;
+    private javax.swing.JTextField reservationCode;
     private com.app.hotelalura.components.RoundedPanel roundedPanel1;
     private com.app.hotelalura.components.RoundedPanel roundedPanel2;
     private javax.swing.JButton saveBtn;
     private javax.swing.JTextField surnameInput;
     // End of variables declaration//GEN-END:variables
+    private BookingCtrl bookingCtrl;
+    private GuestCtrl guestCtrl;
 }
