@@ -1,7 +1,9 @@
 package com.app.hotelalura.daos;
 
 import com.app.hotelalura.dbconn.DbConn;
+import com.app.hotelalura.dto.FullDataDTO;
 import com.app.hotelalura.entities.Booking;
+import com.app.hotelalura.entities.Guest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -129,5 +131,42 @@ public class BookingDAO implements ICrud<Booking, Integer> {
             throw new Exception(ex);
         }
     }
-
+     
+     public FullDataDTO findFullData() throws Exception{
+         List<Booking> b= new ArrayList<>();
+         List<Guest> g = new ArrayList<>();
+        try (Connection conn = DbConn.getConnection()) {
+            String sql = "select * from Booking b INNER JOIN Guest g  WHERE b.guest_id=g.id";
+            try (PreparedStatement st = conn.prepareStatement(sql)){
+                
+                st.execute();
+                ResultSet rst = st.getResultSet();
+                while(rst.next()){
+                    Booking booking= new Booking();
+                    Guest guest= new Guest();
+                    booking.setId(rst.getInt("id"));
+                    booking.setCode(rst.getString("code"));
+                    booking.setDateIn(rst.getDate("dateIn"));
+                    booking.setDateOut(rst.getDate("dateOut"));
+                    booking.setPrice(rst.getDouble("price"));
+                    booking.setPaymentMethod(rst.getString("paymentMethod"));
+                    /* Guest */
+                    guest.setId(rst.getInt("guest_id"));
+                    guest.setFirst_name(rst.getString("firstName"));
+                    guest.setSurname(rst.getString("surname"));
+                    guest.setDate_birth(rst.getDate("dateBirth"));
+                    guest.setNationality(rst.getString("nationality"));
+                    guest.setPhone(rst.getString("phone"));
+                    g.add(guest);
+                    b.add(booking);
+                }
+            }catch (Exception ex) {
+                throw new Exception(ex);
+            }
+        }catch (Exception ex) {
+            Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new Exception(ex);
+        }
+        return new FullDataDTO(b, g);
+    }
 }

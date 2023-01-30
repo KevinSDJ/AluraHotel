@@ -1,10 +1,58 @@
 package com.app.hotelalura.components;
 
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
+
 public class TestNewComp extends javax.swing.JFrame {
 
+    /**
+     * Esta es una alternativa que estaba probando para
+     * reemplazar AbsoluteLayout que me da error al empaquetar
+     * aun no encuentro la informacion necesaria para entender porque
+     * ocurre el error de que no encuentra el ClassPath de ese jar,
+     * Per en todo caso puedo usar Layared panels, con este puede usar
+     * el posicionamiento por eje z , tambien me servira en sustituir al loginView que
+     * es un frame , pero no queda del todo bien usar otro frame para eso.
+     * En todo caso lo dejo aqui para cuando quiera refactorizar ya tenga un ejemplo 
+     * con lo que estaba practicando.
+     */
     public TestNewComp() {
         initComponents();
+        /*Menu*/
         
+        Menu menu = new Menu();
+        roundedPanel1.getLayout().preferredLayoutSize(this);
+        JPanel panel2= new JPanel();
+        panel2.setBackground(Color.BLUE);
+        panel2.setBounds(0,0,(int)(1024-menu.getPreferredSize().getWidth()),600);
+        JPanel jpanel3= new JPanel();
+        jpanel3.setBackground(Color.red);
+        jpanel3.setBounds(panel2.getWidth()-60,10,50,50);
+        
+        
+        /*contenedor base*/
+        JLayeredPane panelLayer= new JLayeredPane();
+        panelLayer.setPreferredSize(new Dimension((int)(1024-menu.getPreferredSize().getWidth()),600));
+        panelLayer.add(panel2,JLayeredPane.DEFAULT_LAYER);
+        panelLayer.add(jpanel3,Integer.valueOf(1));
+        
+        
+        GridBagConstraints constraints = new GridBagConstraints();
+        GridBagConstraints constraints2 = new GridBagConstraints();
+        constraints.gridx = 0; // El área de texto empieza en la columna cero.
+        constraints.gridy = 0; // El área de texto empieza en la fila cero
+        constraints.gridwidth = 2; // El área de texto ocupa dos columnas.
+        constraints.gridheight = 2; // El área de texto ocupa 2 filas.
+        constraints2.gridx=2;
+        constraints2.gridy=1;
+        constraints2.gridwidth=5;
+        constraints2.gridheight=5;
+        roundedPanel1.add(menu, constraints);
+        roundedPanel1.add(panelLayer,constraints2);
     }
 
     /**
@@ -16,27 +64,15 @@ public class TestNewComp extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        customChar2 = new com.app.hotelalura.components.CustomChar();
+        roundedPanel1 = new com.app.hotelalura.components.RoundedPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(86, 86, 86)
-                .addComponent(customChar2, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(259, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(customChar2, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(73, Short.MAX_VALUE))
-        );
+        roundedPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        roundedPanel1.setPreferredSize(new java.awt.Dimension(1024, 600));
+        roundedPanel1.setLayout(new java.awt.GridBagLayout());
+        getContentPane().add(roundedPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
         setLocationRelativeTo(null);
@@ -46,11 +82,11 @@ public class TestNewComp extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-       java.awt.EventQueue.invokeLater(()->new TestNewComp().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new TestNewComp().setVisible(true));
 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.app.hotelalura.components.CustomChar customChar2;
+    private com.app.hotelalura.components.RoundedPanel roundedPanel1;
     // End of variables declaration//GEN-END:variables
 }

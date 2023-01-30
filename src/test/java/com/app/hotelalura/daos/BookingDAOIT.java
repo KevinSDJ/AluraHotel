@@ -1,5 +1,6 @@
 package com.app.hotelalura.daos;
 
+import com.app.hotelalura.dto.FullDataDTO;
 import com.app.hotelalura.entities.Booking;
 import java.sql.Date;
 import java.util.List;
@@ -83,6 +84,22 @@ public class BookingDAOIT {
             
         }
         
+    }
+    
+    @Test 
+    public void fullDataTest(){
+        
+        System.out.println("Full data test");
+        try{
+            FullDataDTO d = bookingDao.findFullData();
+            System.out.println("Bookings --------");
+            d.b().forEach(System.out::println);
+            System.out.println("Guests --------");
+            d.g().forEach(System.out::println);
+            assertEquals(true,true);
+        }catch(Exception ex){
+           fail(ex.getMessage());
+        }
     }
 
 }

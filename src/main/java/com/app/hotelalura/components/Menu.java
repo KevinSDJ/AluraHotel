@@ -19,6 +19,11 @@ public class Menu extends javax.swing.JPanel {
         this.homeref = h;
 
     }
+    public Menu(){
+        initComponents();
+        setOpaque(false);
+        homeref=null;
+    }
 
     private void initComponents() {
 

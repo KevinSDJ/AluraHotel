@@ -12,24 +12,24 @@ import java.awt.event.MouseEvent;
 import java.sql.Date;
 import javax.swing.ImageIcon;
 
-
 public class GuestForm extends javax.swing.JPanel {
 
     /**
      * Creates new form GuestForm
      */
     public GuestForm(RegisterBooking r) {
-        guestCtrl=GuestCtrl.getInstance();
-        bookingCtrl= BookingCtrl.getInstance();
-        parentref=r;
+        guestCtrl = GuestCtrl.getInstance();
+        bookingCtrl = BookingCtrl.getInstance();
+        parentref = r;
         initComponents();
-        setBackground(new Color(0,0,0,0));
+        setBackground(new Color(0, 0, 0, 0));
         setVisible(true);
         extConfig();
     }
-    public GuestForm(){
+
+    public GuestForm() {
         initComponents();
-        setBackground(new Color(0,0,0,0));
+        setBackground(new Color(0, 0, 0, 0));
         setVisible(true);
         extConfig();
     }
@@ -80,9 +80,9 @@ public class GuestForm extends javax.swing.JPanel {
         jLabel4.setText("Name");
         jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
-        nameInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nameInputActionPerformed(evt);
+        nameInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nameKeyTyped(evt);
             }
         });
 
@@ -91,9 +91,20 @@ public class GuestForm extends javax.swing.JPanel {
         jLabel5.setText("Surname");
         jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
+        surnameInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                surnameOnKeytyped(evt);
+            }
+        });
+
         dateBirthInput.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(25, 129, 175), 1, true));
         dateBirthInput.setDateFormatString("yyyy-MM-dd");
         dateBirthInput.setIcon(null);
+        dateBirthInput.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                onchangeDateBirth(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Nimbus Sans", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(102, 102, 102));
@@ -112,18 +123,13 @@ public class GuestForm extends javax.swing.JPanel {
         jLabel8.setText("Phone");
         jLabel8.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
-        phoneInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                phoneInputActionPerformed(evt);
+        phoneInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                onPhoneKeyTyped(evt);
             }
         });
 
         reservationCode.setEditable(false);
-        reservationCode.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reservationCodeActionPerformed(evt);
-            }
-        });
 
         jLabel9.setFont(new java.awt.Font("Nimbus Sans", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(102, 102, 102));
@@ -242,58 +248,73 @@ public class GuestForm extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameInputActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nameInputActionPerformed
-
-    private void phoneInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneInputActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_phoneInputActionPerformed
-
-    private void reservationCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservationCodeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_reservationCodeActionPerformed
-
     private void onClickSaveBtn(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onClickSaveBtn
         // TODO add your handling code here:
-       Boolean isDateBirth=dateBirthInput.getDate()==null;
-       Boolean notName=nameInput.getText().isEmpty();
-       Boolean notSurname=surnameInput.getText().isEmpty();
-       Boolean notPhone= phoneInput.getText().isEmpty();
-       if(!isDateBirth&&!notName&&!notSurname&&!notPhone){
-           parentref.updateDataForm().setFirst_name(nameInput.getText());
-           parentref.updateDataForm().setSurname(surnameInput.getText());
-           parentref.updateDataForm().setDate_birth(new Date(dateBirthInput.getDate().getTime()));
-           parentref.updateDataForm().setPhone(phoneInput.getText());
-           parentref.updateDataForm().setNationality(String.valueOf(nationalityInput.getSelectedItem()));
-           saveBtn.setEnabled(true);
-           GuestDTO g= new GuestDTO(this.parentref.updateDataForm());
-           Integer id=guestCtrl.saveGuest(g);
-           if(id!=null){
-               parentref.updateDataForm().getBooking().get(0).setGuest_id(id);
-               bookingCtrl.saveBooking(new BookingDTO(this,parentref.updateDataForm().getBooking().get(0)));
-           }
-           parentref.closedFormView();
-       }
+        Boolean isDateBirth = dateBirthInput.getDate() == null;
+        Boolean notName = nameInput.getText().isEmpty();
+        Boolean notSurname = surnameInput.getText().isEmpty();
+        Boolean notPhone = phoneInput.getText().isEmpty();
+        if (!isDateBirth && !notName && !notSurname && !notPhone) {
+            parentref.updateDataForm().setFirst_name(nameInput.getText());
+            parentref.updateDataForm().setSurname(surnameInput.getText());
+            parentref.updateDataForm().setDate_birth(new Date(dateBirthInput.getDate().getTime()));
+            parentref.updateDataForm().setPhone(phoneInput.getText());
+            parentref.updateDataForm().setNationality(String.valueOf(nationalityInput.getSelectedItem()));
+            GuestDTO g = new GuestDTO(this.parentref.updateDataForm());
+            Integer id = guestCtrl.saveGuest(g);
+            if (id != null) {
+                parentref.updateDataForm().getBooking().get(0).setGuest_id(id);
+                bookingCtrl.saveBooking(new BookingDTO(this, parentref.updateDataForm().getBooking().get(0)));
+            }
+            parentref.closedFormView();
+        }
     }//GEN-LAST:event_onClickSaveBtn
 
-    private void extConfig(){
-        setSize(830,512);
-        setMaximumSize(new Dimension(830,512));
+    private void onchangeDateBirth(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_onchangeDateBirth
+        // TODO add your handling code here:
+        if (!surnameInput.getText().isEmpty() && dateBirthInput.getDate() != null && !phoneInput.getText().isEmpty() && !nameInput.getText().isEmpty()) {
+            saveBtn.setEnabled(true);
+        }
+    }//GEN-LAST:event_onchangeDateBirth
+
+    private void nameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyTyped
+        // TODO add your handling code here:
+        if (!surnameInput.getText().isEmpty() && dateBirthInput.getDate() != null && !phoneInput.getText().isEmpty() && !nameInput.getText().isEmpty()) {
+            saveBtn.setEnabled(true);
+        }
+    }//GEN-LAST:event_nameKeyTyped
+
+    private void surnameOnKeytyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_surnameOnKeytyped
+        // TODO add your handling code here:
+        if (!surnameInput.getText().isEmpty() && dateBirthInput.getDate() != null && !phoneInput.getText().isEmpty() && !nameInput.getText().isEmpty()) {
+            saveBtn.setEnabled(true);
+        }
+    }//GEN-LAST:event_surnameOnKeytyped
+
+    private void onPhoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_onPhoneKeyTyped
+        // TODO add your handling code here:
+        if (!surnameInput.getText().isEmpty() && dateBirthInput.getDate() != null && !phoneInput.getText().isEmpty() && !nameInput.getText().isEmpty()) {
+            saveBtn.setEnabled(true);
+        }
+    }//GEN-LAST:event_onPhoneKeyTyped
+
+    private void extConfig() {
+        setSize(830, 512);
+        setMaximumSize(new Dimension(830, 512));
         /* inputs*/
         dateBirthInput.setDateFormatString("yyyy-MM-dd");
         dateBirthInput.getCalendarButton().setIcon(new ImageIcon(BookingForm.class.getResource("/images/calendario.png")));
-        backBtn.addMouseListener(new MouseAdapter(){
+        backBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 parentref.previusForm();
             }
-            
+
         });
-        
-    
+
     }
-    public void update(){
+
+    public void update() {
         reservationCode.setText(parentref.updateDataForm().getBooking().get(0).getCode());
     }
 

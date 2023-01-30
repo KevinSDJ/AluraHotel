@@ -17,6 +17,7 @@ public class Main extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         current = new Init(this);
         add(current);
+
     }
 
     public static void main(String args[]) {

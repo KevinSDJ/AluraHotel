@@ -57,10 +57,29 @@
             <artifactId>MDTextInput-1.0.8-bin</artifactId>
             <version>SNAPSHOT</version>
         </dependency>
+
     </dependencies>
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>copy-dependencies</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>copy-dependencies</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>
+                                    ${project.build.directory}/libs
+                                </outputDirectory>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
@@ -86,10 +105,15 @@
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>3.0.2</version>
+                    
                     <configuration>
+                        <archive>
+                            <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                        </archive>
                         <archive>
                             <manifest>
                                 <addClasspath>true</addClasspath>
+                                <classpathPrefix>lib/</classpathPrefix>
                                 <mainClass>com.app.hotelalura.HotelAlura</mainClass>
                             </manifest>
                         </archive>

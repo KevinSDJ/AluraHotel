@@ -3,6 +3,8 @@ package com.app.hotelalura.views;
 import com.app.hotelalura.components.statusConnection.StatusConnection;
 import java.awt.Color;
 import javax.swing.JFrame;
+import org.netbeans.lib.awtextra.AbsoluteConstraints;
+import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 public class Init extends javax.swing.JPanel {
 
@@ -30,11 +32,11 @@ public class Init extends javax.swing.JPanel {
         setBounds(0,0,1024,600);
 
         backgroundBlue.setBackground(new java.awt.Color(25, 129, 175));
-        backgroundBlue.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        backgroundBlue.setLayout(new AbsoluteLayout());
 
         receptionImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-img.png"))); // NOI18N
         receptionImg.setText("receptionImg");
-        backgroundBlue.add(receptionImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, -1));
+        backgroundBlue.add(receptionImg, new AbsoluteConstraints(0, 0, 700, -1));
 
         backgroundWhite.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -97,17 +99,17 @@ public class Init extends javax.swing.JPanel {
                 .addContainerGap(131, Short.MAX_VALUE))
         );
 
-        backgroundBlue.add(backgroundWhite, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 0, 330, 539));
+        backgroundBlue.add(backgroundWhite, new AbsoluteConstraints(694, 0, 330, 539));
 
         jLabel3.setFont(new java.awt.Font("Nimbus Sans", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Developed by Kevin De Jesus  © 2023");
         statusConnection.setBackground(new Color(0,0,0,0));
-        backgroundBlue.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 557, 337, 29));
+        backgroundBlue.add(jLabel3, new AbsoluteConstraints(357, 557, 337, 29));
         /* posicionamiento de componente */
         /* los espacios son donde va a ceber el elemento en anchura*/
         /*espacion -x, position y, espacio x+, position x */
-        backgroundBlue.add(statusConnection, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 557, 170, 30));
+        backgroundBlue.add(statusConnection, new AbsoluteConstraints(100, 557, 170, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -140,7 +142,7 @@ public class Init extends javax.swing.JPanel {
 
 
 
-    private Main mainref;
+    private final Main mainref;
     private JFrame loginWindow;
     private StatusConnection statusConnection;
     private javax.swing.JLabel receptionImg;

@@ -4,12 +4,18 @@ import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import org.netbeans.lib.awtextra.AbsoluteLayout;
+
+
+
 
 public class Home extends javax.swing.JPanel {
 
     public Home() {
         initComponents(this);
+        
     }
+    
 
     private void initComponents(Home h) {
 
@@ -27,7 +33,7 @@ public class Home extends javax.swing.JPanel {
         setOpaque(false);
 
         backgroundPanel.setBackground(new java.awt.Color(255, 255, 255));
-        backgroundPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        backgroundPanel.setLayout(new AbsoluteLayout());
 
         menu1.setBackground(new java.awt.Color(25, 129, 175));
         backgroundPanel.add(menu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 600));
