@@ -13,8 +13,10 @@ import org.junit.jupiter.api.Test;
 
 
 public class DbConnIT {
+    private final DbConn dbConn;
     
     public DbConnIT() {
+        dbConn=DbConn.getInstance();
     }
     
 
@@ -23,7 +25,7 @@ public class DbConnIT {
         Connection result = null;
         System.out.println("Connection Db test");
         try {
-            result = DbConn.getConnection();
+            result = dbConn.getConnection();
 
             assertEquals(true, true);
         } catch (SQLException | RuntimeException ex) {
@@ -42,7 +44,7 @@ public class DbConnIT {
     }
     @Test
     public void createTableBooking(){
-         try (Connection conn = DbConn.getConnection(); PreparedStatement st = conn.prepareStatement("CREATE TABLE  if not exists Booking(\n"
+         try (Connection conn = dbConn.getConnection(); PreparedStatement st = conn.prepareStatement("CREATE TABLE  if not exists Booking(\n"
                 + "id int primary key auto_increment not null,\n"
                 + "code varchar(36) default(uuid()) not null,\n"
                 + "dateIn varchar(10) not null,\n"
@@ -62,7 +64,7 @@ public class DbConnIT {
 
     @Test
     public void createTableGuest() {
-        try (Connection conn = DbConn.getConnection(); PreparedStatement st = conn.prepareStatement("CREATE TABLE  if not exists Guest(\n"
+        try (Connection conn = dbConn.getConnection(); PreparedStatement st = conn.prepareStatement("CREATE TABLE  if not exists Guest(\n"
                 + "id int auto_increment primary key not null,\n"
                 + "first_name varchar(20) not null,\n"
                 + "surname varchar(50) not null,\n"
@@ -82,7 +84,7 @@ public class DbConnIT {
     @Test
     public void showTables() throws SQLException {
         ResultSet rst=null;
-        try (Connection conn = DbConn.getConnection()){
+        try (Connection conn = dbConn.getConnection()){
             DatabaseMetaData metadata= conn.getMetaData();
             
             String[] type={"TABLE"};

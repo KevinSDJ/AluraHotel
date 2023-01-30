@@ -13,8 +13,11 @@ import java.util.logging.Logger;
 
 public class GuestDAO implements ICrud<Guest,Integer>{
     private static final GuestDAO instance = new GuestDAO();
+    private final DbConn dbConn;
             
-    private GuestDAO(){}
+    private GuestDAO(){
+        dbConn= DbConn.getInstance();
+    }
     
     
     public static GuestDAO getinst(){
@@ -34,7 +37,7 @@ public class GuestDAO implements ICrud<Guest,Integer>{
     @Override
     public Integer save(Guest o) throws Exception {
          Integer id=null;
-        try (Connection conn = DbConn.getConnection()) {
+        try (Connection conn = dbConn.getConnection()) {
             String sql = "INSERT INTO Guest (firstName,surname,dateBirth,nationality,phone) VALUES(?,?,?,?,?);";
             System.out.println(sql);
             try (PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {

@@ -19,8 +19,10 @@ import java.util.logging.Logger;
 public class BookingDAO implements ICrud<Booking, Integer> {
 
     private static final BookingDAO instance = new BookingDAO();
+    private final DbConn dbConn;
 
     private BookingDAO() {
+        dbConn=DbConn.getInstance();
     }
 
     public static BookingDAO getInstance() {
@@ -29,7 +31,7 @@ public class BookingDAO implements ICrud<Booking, Integer> {
 
     @Override
     public List<Booking> findAll() {
-        try (Connection conn = DbConn.getConnection()) {
+        try (Connection conn = dbConn.getConnection()) {
             List<Booking> result = new ArrayList<>();
             String sql = String.format("SELECT * FROM %s", Booking.class.getSimpleName());
             try (PreparedStatement st = conn.prepareStatement(sql)) {
@@ -58,7 +60,7 @@ public class BookingDAO implements ICrud<Booking, Integer> {
     @Override
     public Optional<Booking> findOne(Integer id) {
         Optional<Booking> result = null;
-        try (Connection conn = DbConn.getConnection()) {
+        try (Connection conn = dbConn.getConnection()) {
             String sql = String.format("SELECT * FROM %s", Booking.class.getSimpleName());
             try (PreparedStatement st = conn.prepareStatement(sql)) {
                 st.execute();
@@ -87,7 +89,7 @@ public class BookingDAO implements ICrud<Booking, Integer> {
         UUID code=UUID.randomUUID();
         Integer id=null;
         o.setCode(code.toString());
-        try (Connection conn = DbConn.getConnection()) {
+        try (Connection conn = dbConn.getConnection()) {
             String sql = "INSERT INTO Booking (code,dateIn,dateOut,price,paymentMethod,guest_id) VALUES(?,?,?,?,?,?);";
             System.out.println(sql);
             try (PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -116,7 +118,7 @@ public class BookingDAO implements ICrud<Booking, Integer> {
 
     @Override
     public void delete(Integer id) throws Exception {
-        try (Connection conn = DbConn.getConnection()) {
+        try (Connection conn = dbConn.getConnection()) {
             String sql = "DELETE FROM Booking b WHERE b.id=?";
             try (PreparedStatement st = conn.prepareStatement(sql)){
                 
@@ -135,7 +137,7 @@ public class BookingDAO implements ICrud<Booking, Integer> {
      public FullDataDTO findFullData() throws Exception{
          List<Booking> b= new ArrayList<>();
          List<Guest> g = new ArrayList<>();
-        try (Connection conn = DbConn.getConnection()) {
+        try (Connection conn = dbConn.getConnection()) {
             String sql = "select * from Booking b INNER JOIN Guest g  WHERE b.guest_id=g.id";
             try (PreparedStatement st = conn.prepareStatement(sql)){
                 

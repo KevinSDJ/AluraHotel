@@ -16,8 +16,10 @@ import java.util.logging.Logger;
 
 public class AdminDAO implements ICrud<Admin, Integer>{
     private static final AdminDAO instance=new AdminDAO();
+    private final DbConn dbConn;
     
     private AdminDAO (){
+        dbConn= DbConn.getInstance();
     }
     public static AdminDAO getInst(){
         return instance;
@@ -26,7 +28,7 @@ public class AdminDAO implements ICrud<Admin, Integer>{
     @Override
     public List<Admin> findAll() throws Exception {
          List<Admin> result = new ArrayList<>();
-         try (Connection conn = DbConn.getConnection()) {
+         try (Connection conn = dbConn.getConnection()) {
            
             String sql = "SELECT * FROM Admin";
             try (PreparedStatement st = conn.prepareStatement(sql)) {
@@ -56,7 +58,7 @@ public class AdminDAO implements ICrud<Admin, Integer>{
     @Override
     public Optional<Admin> findOne(Integer id) throws Exception {
         Optional<Admin> result = null;
-        try (Connection conn = DbConn.getConnection()) {
+        try (Connection conn = dbConn.getConnection()) {
             String sql ="select * from Admin a where a.id=?";
             try (PreparedStatement st = conn.prepareStatement(sql)) {
                 st.setInt(1, id);
@@ -89,7 +91,7 @@ public class AdminDAO implements ICrud<Admin, Integer>{
     @Override
     public Integer save(Admin o) throws Exception {
         Integer id=null;
-        try (Connection conn = DbConn.getConnection()) {
+        try (Connection conn = dbConn.getConnection()) {
             String sql = "INSERT INTO Admin (email,password) VALUES(?,?)";
             String password=o.getPassword();
             /* encript password , never save password in text plain*/
@@ -116,7 +118,7 @@ public class AdminDAO implements ICrud<Admin, Integer>{
 
     @Override
     public void delete(Integer id) throws Exception {
-       try (Connection conn = DbConn.getConnection()) {
+       try (Connection conn = dbConn.getConnection()) {
             String sql = "DELETE FROM Admin a WHERE a.id=?";
             try (PreparedStatement st = conn.prepareStatement(sql)){
                 
@@ -133,7 +135,7 @@ public class AdminDAO implements ICrud<Admin, Integer>{
     }
     public Optional<AdminDTO> findByEmail(String email) throws Exception{
         Optional<AdminDTO> logindta=Optional.empty();
-        try (Connection conn = DbConn.getConnection()) {
+        try (Connection conn = dbConn.getConnection()) {
             String sql = "SELECT a.email,a.password FROM Admin a WHERE a.email=?";
             try (PreparedStatement st = conn.prepareStatement(sql)){
                 
@@ -155,7 +157,7 @@ public class AdminDAO implements ICrud<Admin, Integer>{
     }
     public Integer countUsers() throws Exception{
         Integer count=0;
-        try (Connection conn = DbConn.getConnection()) {
+        try (Connection conn = dbConn.getConnection()) {
             String sql = "SELECT count(*) FROM Admin";
             try (PreparedStatement st = conn.prepareStatement(sql)){
                 

@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class HotelAlura {
-
+    private static DbConn dbConn= DbConn.getInstance();
 
     public static void main(String args[]) {
         
@@ -23,7 +23,7 @@ public class HotelAlura {
          * en caso de fallar o la falta de la base de datos correspondiente para la app
          * se mostrara un mensaje de fallo la conexion y se cerrara la app
         */
-        try(Connection conn= DbConn.getConnection()){
+        try(Connection conn= dbConn.getConnection()){
             conn.close();
             StatusBox.getInstance().geSubj().updateSuccess();
             main.setEnabled(true);

@@ -6,5 +6,5 @@ import java.util.List;
 
 
 public record FullDataDTO(List<Booking>b,List<Guest> g) {
-    
+   
 }

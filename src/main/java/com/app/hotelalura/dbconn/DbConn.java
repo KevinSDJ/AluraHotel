@@ -29,13 +29,9 @@ public class DbConn {
         this.dataSource= poolDataSource;
     }
     
-    public static Connection getConnection() throws SQLException,Exception,RuntimeException{
-        return instance.exposeConnection();
+    public Connection getConnection() throws SQLException,Exception,RuntimeException{
+        return dataSource.getConnection();
     }
-    private Connection exposeConnection() throws SQLException,Exception,RuntimeException{
-        return this.dataSource.getConnection();
-    }
-   
     public static DbConn getInstance(){
         return instance;
     }

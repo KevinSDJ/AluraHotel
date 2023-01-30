@@ -7,10 +7,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ReflectionTest {
+    private static DbConn dbConn;
     
     public static void main(String[] args) {
+        dbConn=DbConn.getInstance();
         
-        try (Connection conn = DbConn.getConnection(); 
+        try (Connection conn = dbConn.getConnection(); 
                 PreparedStatement st = conn.prepareStatement("CREATE TABLE  if not exists Guest(\n"
                 + "id int auto_increment primary key not null,\n"
                 + "first_name varchar(20) not null,\n"
