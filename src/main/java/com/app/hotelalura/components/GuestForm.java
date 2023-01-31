@@ -4,6 +4,7 @@ import com.app.hotelalura.controllers.BookingCtrl;
 import com.app.hotelalura.controllers.GuestCtrl;
 import com.app.hotelalura.dto.BookingDTO;
 import com.app.hotelalura.dto.GuestDTO;
+import com.app.hotelalura.utils.Cache;
 import com.app.hotelalura.views.RegisterBooking;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,9 +15,6 @@ import javax.swing.ImageIcon;
 
 public class GuestForm extends javax.swing.JPanel {
 
-    /**
-     * Creates new form GuestForm
-     */
     public GuestForm(RegisterBooking r) {
         guestCtrl = GuestCtrl.getInstance();
         bookingCtrl = BookingCtrl.getInstance();
@@ -266,26 +264,27 @@ public class GuestForm extends javax.swing.JPanel {
                 parentref.updateDataForm().getBooking().get(0).setGuest_id(id);
                 bookingCtrl.saveBooking(new BookingDTO(this, parentref.updateDataForm().getBooking().get(0)));
             }
+            Cache.getInst().updateFull();
             parentref.closedFormView();
         }
     }//GEN-LAST:event_onClickSaveBtn
 
     private void onchangeDateBirth(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_onchangeDateBirth
-        // TODO add your handling code here:
+        
         if (!surnameInput.getText().isEmpty() && dateBirthInput.getDate() != null && !phoneInput.getText().isEmpty() && !nameInput.getText().isEmpty()) {
             saveBtn.setEnabled(true);
         }
     }//GEN-LAST:event_onchangeDateBirth
 
     private void nameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyTyped
-        // TODO add your handling code here:
+       
         if (!surnameInput.getText().isEmpty() && dateBirthInput.getDate() != null && !phoneInput.getText().isEmpty() && !nameInput.getText().isEmpty()) {
             saveBtn.setEnabled(true);
         }
     }//GEN-LAST:event_nameKeyTyped
 
     private void surnameOnKeytyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_surnameOnKeytyped
-        // TODO add your handling code here:
+        
         if (!surnameInput.getText().isEmpty() && dateBirthInput.getDate() != null && !phoneInput.getText().isEmpty() && !nameInput.getText().isEmpty()) {
             saveBtn.setEnabled(true);
         }

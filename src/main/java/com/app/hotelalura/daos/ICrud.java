@@ -12,4 +12,5 @@ public interface ICrud <T,V> {
     public Optional<T> findOne(V id) throws Exception;
     public V save(T o) throws Exception;
     public void delete(V id) throws Exception;
+    public Integer update (T o) throws Exception;
 }

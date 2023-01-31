@@ -14,42 +14,37 @@ public class Cache {
     private static Cache instance;
     private List<Observer<FullDataDTO>> observers;
     
-    private Cache(){}
-    
-    public static Cache getCache(){
-        if(instance==null){
-            instance= new Cache();
-        }
-        return instance;
+    private Cache(){
+        observers= new ArrayList<>();
     }
+    
     /**
      * Inicializadores 
     */
     public void initState(FullDataDTO d){
-        if(guests!=null&&bookings!=null){
-            bookings=d.b();
-            guests=d.g();
-        }
+        bookings=d.b();
+        guests=d.g();
+        
     }
     public static Cache getInst(){
         if(instance==null){
             instance= new Cache();
+            
         }
         return instance;
     }
     
-    /* carga de datos y modificadores de estado */
-    public void setBookings(List<Booking> b){
-        bookings=b;
-    }
-    public void setGuests(List<Guest> g){
-        guests=g;
-    }
+    
     public List<Guest> getGuests(){
         return guests;
     }
     public List<Booking> getBookings(){
         return bookings;
+    }
+    
+    public void updateFull(){
+        
+        notifyState(new FullDataDTO(null, null));
     }
     
     public void updateGuests(List<Guest> g){
@@ -66,9 +61,7 @@ public class Cache {
     */
       
     public void subscribe(Observer<FullDataDTO> ob){
-        if(observers==null){
-            observers= new ArrayList<>();
-        }
+       
         observers.add(ob);
     }
     public void unsubscribe(Observer<FullDataDTO> ob){

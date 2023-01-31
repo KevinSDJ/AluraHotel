@@ -26,12 +26,12 @@ public class GuestDAO implements ICrud<Guest,Integer>{
 
     @Override
     public List<Guest> findAll() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public Optional<Guest> findOne(Integer id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -65,7 +65,45 @@ public class GuestDAO implements ICrud<Guest,Integer>{
 
     @Override
     public void delete(Integer id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try (Connection conn = dbConn.getConnection()) {
+            String sql = "DELETE FROM Guest g WHERE g.id=?";
+            try (PreparedStatement st = conn.prepareStatement(sql)){
+                
+                st.setInt(1, id);
+                st.execute();
+                 
+            }catch (Exception ex) {
+                throw new Exception(ex);
+            }
+        }catch (Exception ex) {
+            Logger.getLogger(GuestDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new Exception(ex);
+        } 
     }
     
+
+    public Integer update (Guest o) throws Exception{
+
+        Integer id=null;
+        try (Connection conn = dbConn.getConnection()) {
+            String sql = "UPDATE Guest SET firstName=?,surname=?,dateBirth=?,nationality=? ,phone=? where id=?";
+            try (PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                st.setString(1, o.getFirst_name());
+                st.setString(2, o.getSurname());
+                st.setDate(3, o.getDate_birth());
+                st.setString(4, o.getNationality());
+                st.setString(5, o.getPhone());
+                st.setInt(6, o.getId());
+                id=st.executeUpdate();        
+            }catch (Exception ex) {
+                throw new Exception(ex);
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new Exception(ex);
+        }
+        return id;
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.app.hotelalura.components;
 
 import com.app.hotelalura.controllers.BookingCtrl;
+import com.app.hotelalura.controllers.TableCtrl;
 import com.app.hotelalura.dto.FullDataDTO;
 import com.app.hotelalura.entities.Booking;
 import com.app.hotelalura.entities.Guest;
@@ -19,6 +20,7 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
                 FlatLightLaf.setup();
                 initComponents();
                 fullLoad();
+                Cache.getInst().subscribe(this);
         }
 
         private void initComponents() {
@@ -52,7 +54,7 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
                 });
 
                 jScrollPane1.setViewportView(bookinTable);
-                tabPanel.addTab("Bookiings", jScrollPane1);
+                tabPanel.addTab("Bookings", jScrollPane1);
 
                 guestTable.setModel(new DefaultTableModel(new Object[][] {}, new String[] {
                                 "id", "First Name", "Surname", "Nationality", "Date birth", "Phone"
@@ -207,10 +209,11 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
                 tabPanel.getAccessibleContext().setAccessibleName("Bookings");
         }
 
+
         public void reload(String section) {
                 switch (section) {
-                        case "guest" -> refreshGuest(null);
-                        case "booking" -> refreshBooking(null);
+                        case "Guests" -> refreshGuest(null);
+                        case "Bookings" -> refreshBooking(null);
                         default -> fullLoad();
                 }
         }
@@ -227,6 +230,7 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
                 FullDataDTO data = bookingCtrl.findFullData(this.getParent());
                 refreshGuest(data.g());
                 refreshBooking(data.b());
+                Cache.getInst().initState(data);
         }
 
         /* refresco de tablas especificas */
@@ -234,55 +238,48 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
         private void refreshGuest(List<Guest> data) {
                 DefaultTableModel m = (DefaultTableModel) guestTable.getModel();
                 m.setRowCount(0);
-                List<Guest> guests = data == null ? Cache.getCache().getGuests() : data;
-                if (guests != null) {
-                        if (guests.size() > 0) {
-                                for (Guest g : guests) {
-                                        m.addRow(new Object[] { g.getId(), g.getFirst_name(), g.getSurname(),
-                                                        g.getNationality(),
-                                                        g.getDate_birth(), g.getPhone() });
-                                }
-                                guestTable.repaint();
-                        }
+                List<Guest> guests = data == null ? Cache.getInst().getGuests() : data;
+                if (guests != null&&guests.size() > 0) {
+                        guests.forEach(e->m.addRow(new Object[] { 
+                                e.getId(),
+                                e.getFirst_name(), 
+                                e.getSurname(),
+                                e.getNationality(),
+                                e.getDate_birth(),
+                                e.getPhone()
+                        }));
+                          
+                        guestTable.repaint();
                 }
         }
 
         private void refreshBooking(List<Booking> data) {
                 DefaultTableModel bmodel = (DefaultTableModel) bookinTable.getModel();
                 bmodel.setRowCount(0);
-                List<Booking> bookings = data == null ? Cache.getCache().getBookings() : data;
-                if (bookings != null) {
-                        if (bookings.size() > 0) {
-                                for (Booking b : bookings) {
-                                        bmodel.addRow(new Object[] {
-                                                        b.getId(),
-                                                        b.getCode(),
-                                                        b.getDateIn(),
-                                                        b.getDateOut(),
-                                                        b.getPaymentMethod(),
-                                                        b.getPrice() });
-                                }
-                                bookinTable.repaint();
-                        }
+                List<Booking> bookings = data == null ? Cache.getInst().getBookings() : data;
+                if (bookings != null&&bookings.size() > 0) {
+                        bookings.forEach(b-> bmodel.addRow(new Object[] {
+                                b.getId(),
+                                b.getCode(),
+                                b.getDateIn(),
+                                b.getDateOut(),
+                                b.getPaymentMethod(),
+                                b.getPrice() }));
+                        bookinTable.repaint();
                 }
         }
 
         @Override
         public void update(FullDataDTO t) {
-                System.out.println(t);
+                if(t.b()==null&&t.g()==null){
+                        fullLoad();
+                }
+                
         }
 
         private void onEditClick(java.awt.event.MouseEvent evt) {
 
-                String table=tabPanel.getAccessibleContext().getAccessibleName();
-                if(table.equals("Bookings")){
-                        int row = bookinTable.getSelectedRow();
-                        System.out.println("row: "+row);
-                }else{
-                        int row = guestTable.getSelectedRow();
-                        System.out.println("row: "+row);  
-                }
-
+                TableCtrl.getInstance().editItem(this, tabPanel, guestTable, bookinTable);
         }
 
         private final BookingCtrl bookingCtrl;
@@ -297,5 +294,4 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
         private javax.swing.JScrollPane jScrollPane2;
         private javax.swing.JTextField jTextField1;
         private javax.swing.JTabbedPane tabPanel;
-
 }

@@ -15,7 +15,7 @@ public class Main extends javax.swing.JFrame {
         setResizable(false);
         setBackground(new Color(0, 0, 0, 0));
         setLocationRelativeTo(null);
-        current = new Init(this);
+        current = new Home();
         add(current);
 
     }

@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.UUID;
 
-
-public class Booking implements Serializable{
+public class Booking implements Serializable {
 
     static final long serialVersionUID = 23L;
 
@@ -26,12 +25,10 @@ public class Booking implements Serializable{
     }
 
     public Booking() {
-        UUID uuid_auto= UUID.randomUUID();
-        code=uuid_auto.toString();
+        UUID uuid_auto = UUID.randomUUID();
+        code = uuid_auto.toString();
     }
 
-    
-    
     public int getId() {
         return id;
     }
@@ -39,7 +36,7 @@ public class Booking implements Serializable{
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public Double getPrice() {
         return price;
     }
@@ -47,7 +44,7 @@ public class Booking implements Serializable{
     public void setPrice(Double price) {
         this.price = price;
     }
-    
+
     public String getCode() {
         return code;
     }
@@ -55,7 +52,7 @@ public class Booking implements Serializable{
     public void setCode(String code) {
         this.code = code;
     }
-    
+
     public Date getDateIn() {
         return dateIn;
     }
@@ -79,10 +76,12 @@ public class Booking implements Serializable{
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
+   
 
     @Override
     public String toString() {
-        return "Booking{" + "code=" + code + ", dateIn=" + dateIn + ", dateOut=" + dateOut + ", price=" + price + ", paymentMethod=" + paymentMethod + '}';
+        return "Booking{" + "code=" + code + ", dateIn=" + dateIn + ", dateOut=" + dateOut + ", price=" + price
+                + ", paymentMethod=" + paymentMethod + '}';
     }
 
 }
