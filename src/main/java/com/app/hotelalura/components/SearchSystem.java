@@ -89,6 +89,12 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
                 deleteBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete_icon2.png")));
                 deleteBtn.setText("delete");
                 deleteBtn.setPreferredSize(new java.awt.Dimension(106, 40));
+                deleteBtn.addMouseListener(new MouseAdapter(){
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            onDeleteClick(e);
+                        }
+                });
 
                 jLabel1.setBackground(new java.awt.Color(25, 129, 175));
                 jLabel1.setFont(new java.awt.Font("Nimbus Sans", 1, 24));
@@ -274,12 +280,24 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
                 if(t.b()==null&&t.g()==null){
                         fullLoad();
                 }
+                if(t.b()==null && t.g()!=null){
+                        reload("Guests");
+                }
+                if(t.b()!=null && t.g()==null){
+                        reload("Bookings");
+                }
                 
         }
 
         private void onEditClick(java.awt.event.MouseEvent evt) {
 
                 TableCtrl.getInstance().editItem(this, tabPanel, guestTable, bookinTable);
+        }
+
+        private void onDeleteClick(java.awt.event.MouseEvent evt){
+
+                TableCtrl.getInstance().deleteItem(this, tabPanel, guestTable, bookinTable);
+
         }
 
         private final BookingCtrl bookingCtrl;

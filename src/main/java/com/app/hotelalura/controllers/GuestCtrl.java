@@ -1,17 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.app.hotelalura.controllers;
 
 import com.app.hotelalura.daos.GuestDAO;
 import com.app.hotelalura.dto.GuestDTO;
-import javax.swing.JOptionPane;
+import com.app.hotelalura.entities.Guest;
+import com.app.hotelalura.utils.Cache;
 
-/**
- *
- * @author kevinsdj
- */
+import javax.swing.JOptionPane;
+import java.awt.Component;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class GuestCtrl {
 
     private final GuestDAO guestDao;
@@ -28,17 +26,49 @@ public class GuestCtrl {
         return instance;
     }
 
-    public Integer editGuest(GuestDTO g) {
+    public Integer saveGuest(GuestDTO g) {
         Integer id=null;
         try{
-            id= guestDao.save(g.g());
+            id= guestDao.save(g.buildEntity());
         }catch(Exception ex){
              ex.printStackTrace();
              JOptionPane.showMessageDialog(g.comp(), ex.getMessage(),"",0);
         }
         
         return id;
+    }
+    public void editGuest(GuestDTO g){
+        Guest guest = g.buildEntity();
+        List<Guest> newlist = Cache.getInst().getGuests().stream()
+                .filter(e -> e.getId() != guest.getId()).collect(Collectors.toList());
+        
+        try {
 
+            guestDao.update(guest);
+            newlist.add(guest);
+            Cache.getInst().updateGuests(newlist);
+
+        } catch (Exception e1) {
+            e1.printStackTrace();
+            JOptionPane.showMessageDialog(g.comp(), e1.getMessage(), "error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+    
+    public void deleteGuest(Component context,int id){
+        List<Guest> guests= Cache.getInst().getGuests().stream()
+        .filter(e-> e.getId()!=id).collect(Collectors.toList());
+        
+        try{
+
+            guestDao.delete(id);
+            Cache.getInst().updateGuests(guests);
+            
+        }catch(Exception ex){
+
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(context, ex.getMessage(),"error",JOptionPane.ERROR_MESSAGE);
+        }
     }
 
 }

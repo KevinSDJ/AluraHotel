@@ -5,7 +5,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import com.app.hotelalura.dto.BookingDTO;
 import com.app.hotelalura.dto.GuestDTO;
-import com.app.hotelalura.entities.Guest;
 import java.awt.Component;
 import java.sql.Date;
 
@@ -48,15 +47,14 @@ public class TableCtrl {
             }           
         }else if(tabpanel.equals("Guests")&& row2>=0){
             
-            Guest guest= new Guest();
-            guest.setId((int) guestTable.getModel().getValueAt(row2, 0));
-            guest.setFirst_name((String) guestTable.getModel().getValueAt(row2, 1));
-            guest.setSurname((String) guestTable.getModel().getValueAt(row2, 2));
-            guest.setNationality((String) guestTable.getModel().getValueAt(row2, 3));
-            guest.setDate_birth(Date.valueOf(String.valueOf(guestTable.getModel().getValueAt(row2, 4))));
-            guest.setPhone((String) guestTable.getModel().getValueAt(row2, 5));
+            int id= (int) guestTable.getModel().getValueAt(row2, 0);
+            String first_name= (String) guestTable.getModel().getValueAt(row2, 1);
+            String surname= (String) guestTable.getModel().getValueAt(row2, 2);
+            String nationality= (String) guestTable.getModel().getValueAt(row2, 3);
+            Date dateBirth= Date.valueOf(String.valueOf(guestTable.getModel().getValueAt(row2, 4)));
+            String phone = (String) guestTable.getModel().getValueAt(row2, 5);
 
-            guestCtrl.editGuest(new GuestDTO(pcontext, guest));
+            guestCtrl.editGuest(new GuestDTO(pcontext, id,first_name,surname,dateBirth,nationality,phone));
             guestTable.clearSelection();
 
         }else {
@@ -68,4 +66,27 @@ public class TableCtrl {
 
     }
 
+    public void deleteItem(Component context,JTabbedPane tabPanel,JTable guestTable,JTable bookingTable){
+
+        String tabpanel=tabPanel.getTitleAt(tabPanel.getSelectedIndex());
+        int row = bookingTable.getSelectedRow();
+        int row2 =guestTable.getSelectedRow();
+        if(tabpanel.equals("Bookings")&& row>=0){
+
+            int id = (int ) bookingTable.getModel().getValueAt(row, 0);
+            bookingCtrl.deleteBooking(context, id);
+            bookingTable.clearSelection();
+
+        }else if(tabpanel.equals("Guests")&& row2>=0){
+            int id = (int ) guestTable.getModel().getValueAt(row2, 0);
+            guestCtrl.deleteGuest(context,id);
+            guestTable.clearSelection();
+        }else{
+            JOptionPane.showMessageDialog(context,
+            "Item not selected",
+            "warning",
+            JOptionPane.WARNING_MESSAGE);
+        }
+
+    }
 }

@@ -248,7 +248,7 @@ public class GuestForm extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void onClickSaveBtn(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onClickSaveBtn
-        // TODO add your handling code here:
+        
         Boolean isDateBirth = dateBirthInput.getDate() == null;
         Boolean notName = nameInput.getText().isEmpty();
         Boolean notSurname = surnameInput.getText().isEmpty();
@@ -259,8 +259,16 @@ public class GuestForm extends javax.swing.JPanel {
             parentref.updateDataForm().setDate_birth(new Date(dateBirthInput.getDate().getTime()));
             parentref.updateDataForm().setPhone(phoneInput.getText());
             parentref.updateDataForm().setNationality(String.valueOf(nationalityInput.getSelectedItem()));
-            GuestDTO g = new GuestDTO(this.parentref.updateDataForm());
-            Integer id = guestCtrl.editGuest(g);
+            GuestDTO g = new GuestDTO(
+                this,
+                parentref.updateDataForm().getId(),
+                parentref.updateDataForm().getFirst_name(),
+                parentref.updateDataForm().getSurname(),
+                parentref.updateDataForm().getDate_birth(),
+                parentref.updateDataForm().getNationality(),
+                parentref.updateDataForm().getPhone()
+                );
+            Integer id = guestCtrl.saveGuest(g);
             if (id != null) {
                 Booking b=parentref.updateDataForm().getBooking().get(0);
                 b.setGuest_id(id);

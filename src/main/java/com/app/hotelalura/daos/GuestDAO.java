@@ -84,7 +84,6 @@ public class GuestDAO implements ICrud<Guest,Integer>{
 
     public void update (Guest o) throws Exception{
 
-        Integer id=null;
         try (Connection conn = dbConn.getConnection()) {
             String sql = "UPDATE Guest SET firstName=?,surname=?,dateBirth=?,nationality=? ,phone=? where id=?";
             try (PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -94,7 +93,7 @@ public class GuestDAO implements ICrud<Guest,Integer>{
                 st.setString(4, o.getNationality());
                 st.setString(5, o.getPhone());
                 st.setInt(6, o.getId());
-                id=st.executeUpdate();        
+                st.executeUpdate();        
             }catch (Exception ex) {
                 throw new Exception(ex);
             }

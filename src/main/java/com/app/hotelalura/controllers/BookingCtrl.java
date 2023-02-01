@@ -65,4 +65,20 @@ public class BookingCtrl {
 
     }
 
+    public void deleteBooking(Component context,int id ){
+        List<Booking> bookings= Cache.getInst().getBookings().stream()
+        .filter(e-> e.getId()!=id).collect(Collectors.toList());
+
+        try{
+
+            bookingDao.delete(id);
+            Cache.getInst().updateBookings(bookings);
+
+        }catch(Exception ex){
+            
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(context, ex.getMessage(),"error",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 }
