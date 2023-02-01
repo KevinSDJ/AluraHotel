@@ -28,6 +28,7 @@ public class BookingCtrl {
     public void saveBooking(BookingDTO b) {
         try {
             bookingDao.save(b.buildEntity());
+            
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(b.comp(), ex.getMessage(), "", 0);

@@ -30,6 +30,12 @@ public class GuestCtrl {
         Integer id=null;
         try{
             id= guestDao.save(g.buildEntity());
+            JOptionPane.showMessageDialog(
+                g.comp(),
+                "save sucessfully",
+                "info",
+                JOptionPane.INFORMATION_MESSAGE);
+            
         }catch(Exception ex){
              ex.printStackTrace();
              JOptionPane.showMessageDialog(g.comp(), ex.getMessage(),"",0);
