@@ -5,63 +5,64 @@ import com.app.hotelalura.dto.BookingDTO;
 import com.app.hotelalura.dto.FullDataDTO;
 import com.app.hotelalura.entities.Booking;
 import com.app.hotelalura.utils.Cache;
-
 import java.awt.Component;
-import java.lang.reflect.Method;
-import java.util.Optional;
-
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
-
 
 public class BookingCtrl {
     private final BookingDAO bookingDao;
     private static BookingCtrl instance;
-    
-    
-    private BookingCtrl(){
-        bookingDao=BookingDAO.getInstance();
+
+    private BookingCtrl() {
+        bookingDao = BookingDAO.getInstance();
     }
-    
-    public static BookingCtrl getInstance(){
-        if(instance==null){
-            instance= new BookingCtrl();
+
+    public static BookingCtrl getInstance() {
+        if (instance == null) {
+            instance = new BookingCtrl();
         }
         return instance;
     }
-    
-    public void saveBooking(BookingDTO b){
-        try{
-            bookingDao.save(b.booking());
-        }catch(Exception ex){
+
+    public void saveBooking(BookingDTO b) {
+        try {
+            bookingDao.save(b.buildEntity());
+        } catch (Exception ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(b.comp(), ex.getMessage(),"",0);
+            JOptionPane.showMessageDialog(b.comp(), ex.getMessage(), "", 0);
         }
     }
-    
-    public FullDataDTO findFullData(Component comp){
-        FullDataDTO result=null;
-        try{
+
+    public FullDataDTO findFullData(Component comp) {
+        FullDataDTO result = null;
+        try {
             result = bookingDao.findFullData();
-        
-        }catch(Exception ex){
+
+        } catch (Exception ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(comp, ex.getMessage(),"error",0);
-            
+            JOptionPane.showMessageDialog(comp, ex.getMessage(), "error", 0);
+
         }
         return result;
-        
+
     }
 
-    public void edit(BookingDTO b){
-        Optional<Booking> bk = Cache.getInst().getBookings().stream()
-        .filter(e->e.getId()==b.booking().getId()).findFirst();
-        Method[] methods= bk.get().getClass().getMethods();
-        for(Method m:methods){
-            System.out.println(m);
+    public void editBooking(BookingDTO b) {
+        Booking booking =b.buildEntity();
+        List<Booking> newlist = Cache.getInst().getBookings().stream()
+                .filter(e -> e.getId() != booking.getId()).collect(Collectors.toList());
+        
+        try {
+            bookingDao.update(booking);
+
+            newlist.add(booking);
+            Cache.getInst().updateBookings(newlist);
+        } catch (Exception e1) {
+            e1.printStackTrace();
+            JOptionPane.showMessageDialog(b.comp(), e1.getMessage(), "error", JOptionPane.ERROR_MESSAGE);
         }
 
-    } 
-    
-    
-    
+    }
+
 }

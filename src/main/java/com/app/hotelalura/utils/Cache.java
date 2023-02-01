@@ -48,11 +48,11 @@ public class Cache {
     }
     
     public void updateGuests(List<Guest> g){
-        guests=g;
+        this.guests=g;
         notifyState(new FullDataDTO(null,g));
     }
     public void updateBookings(List<Booking> b){
-        bookings=b;
+        this.bookings=b;
         notifyState(new FullDataDTO(b,null));
     }
 

@@ -14,13 +14,13 @@ public class Booking implements Serializable {
     private Date dateOut;
     private Double price;
     private String paymentMethod;
-    private int guest_id;
+    private Integer guest_id;
 
     public int getGuest_id() {
         return guest_id;
     }
 
-    public void setGuest_id(int guest_id) {
+    public void setGuest_id(Integer guest_id) {
         this.guest_id = guest_id;
     }
 
@@ -29,7 +29,7 @@ public class Booking implements Serializable {
         code = uuid_auto.toString();
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

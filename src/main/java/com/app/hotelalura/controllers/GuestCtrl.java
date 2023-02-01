@@ -28,7 +28,7 @@ public class GuestCtrl {
         return instance;
     }
 
-    public Integer saveGuest(GuestDTO g) {
+    public Integer editGuest(GuestDTO g) {
         Integer id=null;
         try{
             id= guestDao.save(g.g());

@@ -173,18 +173,17 @@ public class BookingDAO implements ICrud<Booking, Integer> {
     }
 
 
-    public Integer update (Booking o) throws Exception{
+    public void update (Booking o) throws Exception{
 
-        Integer id=null;
         try (Connection conn = dbConn.getConnection()) {
-            String sql = "UPDATE Booking SET dateIn=?,dateOut=?,price=?,paymentMethod=? where id=?";
+            String sql = "update Booking set dateIn= ?, dateOut= ?, price= ?, paymentMethod=?  where id=?";
             try (PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 st.setDate(1, o.getDateIn());
                 st.setDate(2, o.getDateOut());
                 st.setDouble(3, o.getPrice());
                 st.setString(4, o.getPaymentMethod());
                 st.setInt(5, o.getId());
-                id=st.executeUpdate();        
+                st.execute();        
             }catch (Exception ex) {
                 throw new Exception(ex);
             }
@@ -193,6 +192,6 @@ public class BookingDAO implements ICrud<Booking, Integer> {
             Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, null, ex);
             throw new Exception(ex);
         }
-        return id;
+   
     }
 }

@@ -176,9 +176,8 @@ public class AdminDAO implements ICrud<Admin, Integer>{
         return count;
     }
     @Override
-    public Integer update(Admin o) throws Exception {
-      
-        return null;
+    public void update(Admin o) throws Exception {
+  
     }
     
 }

@@ -82,7 +82,7 @@ public class GuestDAO implements ICrud<Guest,Integer>{
     }
     
 
-    public Integer update (Guest o) throws Exception{
+    public void update (Guest o) throws Exception{
 
         Integer id=null;
         try (Connection conn = dbConn.getConnection()) {
@@ -103,7 +103,7 @@ public class GuestDAO implements ICrud<Guest,Integer>{
             Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, null, ex);
             throw new Exception(ex);
         }
-        return id;
+  
     }
 
 }

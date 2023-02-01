@@ -4,6 +4,7 @@ import com.app.hotelalura.controllers.BookingCtrl;
 import com.app.hotelalura.controllers.GuestCtrl;
 import com.app.hotelalura.dto.BookingDTO;
 import com.app.hotelalura.dto.GuestDTO;
+import com.app.hotelalura.entities.Booking;
 import com.app.hotelalura.utils.Cache;
 import com.app.hotelalura.views.RegisterBooking;
 import java.awt.Color;
@@ -259,10 +260,13 @@ public class GuestForm extends javax.swing.JPanel {
             parentref.updateDataForm().setPhone(phoneInput.getText());
             parentref.updateDataForm().setNationality(String.valueOf(nationalityInput.getSelectedItem()));
             GuestDTO g = new GuestDTO(this.parentref.updateDataForm());
-            Integer id = guestCtrl.saveGuest(g);
+            Integer id = guestCtrl.editGuest(g);
             if (id != null) {
-                parentref.updateDataForm().getBooking().get(0).setGuest_id(id);
-                bookingCtrl.saveBooking(new BookingDTO(this, parentref.updateDataForm().getBooking().get(0)));
+                Booking b=parentref.updateDataForm().getBooking().get(0);
+                b.setGuest_id(id);
+                bookingCtrl.saveBooking(
+                    new BookingDTO(this,b.getId(),b.getCode(),b.getDateIn(),b.getDateOut(),b.getPaymentMethod(),b.getPrice(),b.getGuest_id())
+                    );
             }
             Cache.getInst().updateFull();
             parentref.closedFormView();
