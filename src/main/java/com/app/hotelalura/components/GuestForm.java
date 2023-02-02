@@ -12,6 +12,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
@@ -102,6 +103,12 @@ public class GuestForm extends javax.swing.JPanel {
         dateBirthInput.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(25, 129, 175), 1, true));
         dateBirthInput.setDateFormatString("yyyy-MM-dd");
         dateBirthInput.setIcon(null);
+        int maxima= LocalDate.now().getYear()-18;
+        int minima=LocalDate.now().getYear()-90;
+        dateBirthInput.setSelectableDateRange(
+            Date.valueOf(LocalDate.parse(String.format("%s-12-28", minima)))
+            ,Date.valueOf(LocalDate.parse(String.format("%s-12-28", maxima))));
+        
         dateBirthInput.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 onchangeDateBirth(evt);

@@ -62,13 +62,11 @@ public class GuestCtrl {
     }
     
     public void deleteGuest(Component context,int id){
-        List<Guest> guests= Cache.getInst().getGuests().stream()
-        .filter(e-> e.getId()!=id).collect(Collectors.toList());
         
         try{
-
+            
             guestDao.delete(id);
-            Cache.getInst().updateGuests(guests);
+            Cache.getInst().updateFull();;
             
         }catch(Exception ex){
 

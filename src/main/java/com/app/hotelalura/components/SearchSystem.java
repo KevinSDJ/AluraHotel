@@ -9,6 +9,7 @@ import com.app.hotelalura.utils.Cache;
 import com.app.hotelalura.utils.pattern_obs.Observer;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.util.List;
+import javax.swing.JToolTip;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -33,7 +34,7 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
                 editBtn = new javax.swing.JButton();
                 deleteBtn = new javax.swing.JButton();
                 jLabel1 = new javax.swing.JLabel();
-                jTextField1 = new javax.swing.JTextField();
+                inputSearchField = new javax.swing.JTextField();
                 jButton1 = new javax.swing.JButton();
                 jLabel2 = new javax.swing.JLabel();
 
@@ -101,7 +102,13 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
                 jLabel1.setForeground(new java.awt.Color(25, 129, 175));
                 jLabel1.setText("Search System");
 
-                jTextField1.setFont(new java.awt.Font("Nimbus Sans", 0, 14));
+                inputSearchField.setFont(new java.awt.Font("Nimbus Sans", 0, 14));
+                inputSearchField.setToolTipText("type words for search guests,type numbers for bookings");
+                JToolTip jTtipe= inputSearchField.createToolTip();
+                jTtipe.setBackground(java.awt.Color.white);
+                
+                
+
 
                 jButton1.setBackground(new java.awt.Color(102, 102, 102));
                 jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lupa3.png")));
@@ -147,7 +154,7 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
                                                                                                                 javax.swing.LayoutStyle.ComponentPlacement.RELATED,
                                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                                 Short.MAX_VALUE)
-                                                                                                .addComponent(jTextField1,
+                                                                                                .addComponent(inputSearchField,
                                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                                                 165,
                                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -179,7 +186,7 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
                                                                                                 .addGroup(layout
                                                                                                                 .createParallelGroup(
                                                                                                                                 javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                                                .addComponent(jTextField1,
+                                                                                                                .addComponent(inputSearchField,
                                                                                                                                 javax.swing.GroupLayout.Alignment.TRAILING,
                                                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                                                                 30,
@@ -310,6 +317,6 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
         private javax.swing.JLabel jLabel2;
         private javax.swing.JScrollPane jScrollPane1;
         private javax.swing.JScrollPane jScrollPane2;
-        private javax.swing.JTextField jTextField1;
+        private javax.swing.JTextField inputSearchField;
         private javax.swing.JTabbedPane tabPanel;
 }
