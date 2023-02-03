@@ -308,8 +308,6 @@ public class GuestForm extends javax.swing.JPanel {
         
         if (!surnameInput.getText().isEmpty() && dateBirthInput.getDate() != null && !phoneInput.getText().isEmpty() && !nameInput.getText().isEmpty()) {
             saveBtn.setEnabled(true);
-        }else{
-            surnameInput.setBorder(new LineBorder(new Color(0,0,0,0),1,true));
         }
         
     }//GEN-LAST:event_surnameOnKeytyped

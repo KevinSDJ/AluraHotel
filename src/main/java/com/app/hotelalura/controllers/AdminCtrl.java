@@ -47,7 +47,7 @@ public class AdminCtrl {
             if(!isValidPassword){
                 JOptionPane.showMessageDialog(
                         logindt.comp(),
-                        "Email invalid, try again",
+                        "password invalid, try again",
                         "warning",1
                         );
                 return false;

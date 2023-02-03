@@ -24,7 +24,7 @@ public class TestNewComp extends javax.swing.JFrame {
         initComponents();
         /*Menu*/
         
-        Menu menu = new Menu();
+        Menu2 menu = new Menu2();
 
     
         
