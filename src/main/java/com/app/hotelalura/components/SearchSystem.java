@@ -1,6 +1,7 @@
 package com.app.hotelalura.components;
 
 import com.app.hotelalura.controllers.BookingCtrl;
+import com.app.hotelalura.controllers.SearchCtrl;
 import com.app.hotelalura.controllers.TableCtrl;
 import com.app.hotelalura.dto.FullDataDTO;
 import com.app.hotelalura.entities.Booking;
@@ -9,7 +10,10 @@ import com.app.hotelalura.utils.Cache;
 import com.app.hotelalura.utils.pattern_obs.Observer;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.util.List;
+import javax.swing.JTextField;
 import javax.swing.JToolTip;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -106,7 +110,25 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
                 inputSearchField.setToolTipText("type words for search guests,type numbers for bookings");
                 JToolTip jTtipe= inputSearchField.createToolTip();
                 jTtipe.setBackground(java.awt.Color.white);
-                
+                inputSearchField.getDocument().addDocumentListener(new DocumentListener(){
+
+                        @Override
+                        public void insertUpdate(DocumentEvent e) {
+                               onSearchTyped(inputSearchField);
+                        }
+
+                        @Override
+                        public void removeUpdate(DocumentEvent e) {
+                                onSearchTyped(inputSearchField);
+                                
+                        }
+
+                        @Override
+                        public void changedUpdate(DocumentEvent e) {
+                               onSearchTyped(inputSearchField);
+                        }
+
+                });
                 
 
 
@@ -306,6 +328,12 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
                 TableCtrl.getInstance().deleteItem(this, tabPanel, guestTable, bookinTable);
 
         }
+
+        private void onSearchTyped(JTextField e){
+                
+                SearchCtrl.getInstance().typeIn(e.getText());
+        }
+
 
         private final BookingCtrl bookingCtrl;
         private javax.swing.JTable bookinTable;
