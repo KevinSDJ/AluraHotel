@@ -1,11 +1,11 @@
 package com.app.hotelalura.controllers;
 
-import java.util.ArrayList;
 import com.app.hotelalura.entities.Booking;
 import com.app.hotelalura.entities.Guest;
 import com.app.hotelalura.utils.Cache;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class SearchCtrl {
     private static  SearchCtrl instance;
@@ -16,6 +16,8 @@ public class SearchCtrl {
 
     private SearchCtrl(){
         cache= Cache.getInst();
+        guestCopy= cache.getGuests();
+        bookingCopy=cache.getBookings();
     }
 
     public static SearchCtrl getInstance(){
@@ -26,7 +28,11 @@ public class SearchCtrl {
     }
 
     public void typeIn(String typetext){
-        
+        if(typetext.isEmpty()){
+            System.out.println("Is empty , reload full");
+            reloadFull();
+            return ;
+        }
         if(Pattern.matches("^[a-zA-Z ]*$", typetext)){
             searchBySurname(typetext.trim());     
         }else if(Pattern.matches("[0-9]+", typetext)){
@@ -36,8 +42,24 @@ public class SearchCtrl {
     public void searchById(String typetext){
         int id= Integer.parseInt(typetext);
         System.out.println("Searching by "+id);
+        if(bookingCopy.size()>0){
+            cache.updateBookings(bookingCopy.stream()
+            .filter(e-> e.getId()==id).collect(Collectors.toList()));   
+        }
     }
     public void searchBySurname(String typeTextString){
         System.out.println("Searching by surname");
+        if(guestCopy.size()>0){
+            cache.updateGuests(guestCopy.stream()
+            .filter(e-> e.getSurname().toLowerCase().contains(typeTextString.toLowerCase())).collect(Collectors.toList()));   
+        }
+    }
+    public void reloadFull(){
+        cache.updateGuests(guestCopy);
+        cache.updateBookings(bookingCopy);
+    }
+    public void updateCopies(){
+        guestCopy=cache.getGuests();
+        bookingCopy=cache.getBookings();
     }
 }

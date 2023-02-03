@@ -1,13 +1,17 @@
 package com.app.hotelalura.components;
 
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 
 public class DefMenuViewIT extends JFrame {
+    private JTextField custTextField;
     
-    
-    DefMenuViewIT(){
+    public DefMenuViewIT(){
+        custTextField=new JTextField("dsdsddsdsdsd");
+
         setSize(740, 600);
+        getContentPane().add(custTextField);
         
     }
     

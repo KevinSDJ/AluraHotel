@@ -104,22 +104,14 @@ public class BookingForm extends javax.swing.JPanel {
         nextStepBtn.setText("next step");
         nextStepBtn.setBorderPainted(false);
         nextStepBtn.setPreferredSize(new java.awt.Dimension(80, 25));
-        nextStepBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nextStepBtnActionPerformed(evt);
-            }
-        });
+   
 
         cancelBtn.setBackground(new java.awt.Color(102, 102, 102));
         cancelBtn.setFont(new java.awt.Font("Noto Sans", 1, 14)); // NOI18N
         cancelBtn.setForeground(new java.awt.Color(255, 255, 255));
         cancelBtn.setText("cancel");
         cancelBtn.setPreferredSize(new java.awt.Dimension(72, 33));
-        cancelBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelBtnActionPerformed(evt);
-            }
-        });
+      
 
         paymentMethodInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CREDIT CARD", "CARD DEBIT", "EFFECTIVE" }));
 
@@ -218,14 +210,7 @@ public class BookingForm extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nextStepBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextStepBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nextStepBtnActionPerformed
-
-    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cancelBtnActionPerformed
-
+ 
     private void onchangedateOutInput(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_onchangedateOutInput
         // TODO add your handling code here:
         if (inputDateIn.getDate() != null && inputDateOut.getDate() != null) {

@@ -25,6 +25,9 @@ public class TestNewComp extends javax.swing.JFrame {
         /*Menu*/
         
         Menu menu = new Menu();
+
+    
+        
         roundedPanel1.getLayout().preferredLayoutSize(this);
         JPanel panel2= new JPanel();
         panel2.setBackground(Color.BLUE);

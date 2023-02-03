@@ -13,7 +13,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
 
@@ -307,11 +306,8 @@ public class GuestForm extends javax.swing.JPanel {
 
     private void surnameOnKeytyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_surnameOnKeytyped
         
-        if(!Pattern.matches("^[a-zA-Z ]*$",surnameInput.getText())){
-            surnameInput.setBorder(new LineBorder(Color.red,1,true));
-            if (!surnameInput.getText().isEmpty() && dateBirthInput.getDate() != null && !phoneInput.getText().isEmpty() && !nameInput.getText().isEmpty()) {
-                saveBtn.setEnabled(true);
-            }
+        if (!surnameInput.getText().isEmpty() && dateBirthInput.getDate() != null && !phoneInput.getText().isEmpty() && !nameInput.getText().isEmpty()) {
+            saveBtn.setEnabled(true);
         }else{
             surnameInput.setBorder(new LineBorder(new Color(0,0,0,0),1,true));
         }

@@ -4,7 +4,6 @@ import com.app.hotelalura.daos.GuestDAO;
 import com.app.hotelalura.dto.GuestDTO;
 import com.app.hotelalura.entities.Guest;
 import com.app.hotelalura.utils.Cache;
-
 import javax.swing.JOptionPane;
 import java.awt.Component;
 import java.util.List;

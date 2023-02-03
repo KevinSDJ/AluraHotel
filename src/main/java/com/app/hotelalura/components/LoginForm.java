@@ -251,8 +251,8 @@ public class LoginForm extends javax.swing.JPanel {
 
     private void passwordInputKeyTyped(java.awt.event.KeyEvent evt) {
         
-        if (!Pattern.matches("^(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,16}$", passwordInput.getText())) {
-            if (passwordInput.getText().isBlank()) {
+        if (!Pattern.matches("^(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,16}$", passwordInput.getPassword().toString())) {
+            if (passwordInput.getPassword().toString().isBlank()) {
                 passFieldHelp.setText("* password is required");
                 isPassValid = false;
             } else {

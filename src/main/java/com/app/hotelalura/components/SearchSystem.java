@@ -10,6 +10,8 @@ import com.app.hotelalura.utils.Cache;
 import com.app.hotelalura.utils.pattern_obs.Observer;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.util.List;
+import java.awt.Dimension;
+import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JToolTip;
 import javax.swing.event.DocumentEvent;
@@ -38,7 +40,7 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
                 editBtn = new javax.swing.JButton();
                 deleteBtn = new javax.swing.JButton();
                 jLabel1 = new javax.swing.JLabel();
-                inputSearchField = new javax.swing.JTextField();
+                inputSearchField = new CustomTextField();
                 jButton1 = new javax.swing.JButton();
                 jLabel2 = new javax.swing.JLabel();
 
@@ -108,8 +110,11 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
 
                 inputSearchField.setFont(new java.awt.Font("Nimbus Sans", 0, 14));
                 inputSearchField.setToolTipText("type words for search guests,type numbers for bookings");
+                inputSearchField.setPreferredSize(new Dimension(300,36));
+                inputSearchField.setSuffixIcon(new ImageIcon(getClass().getResource("/images/icons8-busca-mas-24.png")));
                 JToolTip jTtipe= inputSearchField.createToolTip();
                 jTtipe.setBackground(java.awt.Color.white);
+                
                 inputSearchField.getDocument().addDocumentListener(new DocumentListener(){
 
                         @Override
@@ -178,14 +183,10 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
                                                                                                                 Short.MAX_VALUE)
                                                                                                 .addComponent(inputSearchField,
                                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                                                165,
+                                                                                                                180,
                                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                                 .addPreferredGap(
                                                                                                                 javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                                .addComponent(jButton1,
-                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                                                46,
-                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                                 .addGap(19, 19, 19))
                                                                                 .addGroup(layout.createSequentialGroup()
                                                                                                 .addGap(185, 185, 185)
@@ -212,9 +213,7 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
                                                                                                                                 javax.swing.GroupLayout.Alignment.TRAILING,
                                                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                                                                 30,
-                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                                .addComponent(jButton1,
-                                                                                                                                javax.swing.GroupLayout.Alignment.TRAILING)))
+                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                                                 .addGroup(layout.createSequentialGroup()
                                                                                                 .addComponent(jLabel2,
                                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
@@ -245,7 +244,7 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
         }
 
 
-        public void reload(String section) {
+        private void reload(String section) {
                 switch (section) {
                         case "Guests" -> refreshGuest(null);
                         case "Bookings" -> refreshBooking(null);
@@ -266,6 +265,7 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
                 refreshGuest(data.g());
                 refreshBooking(data.b());
                 Cache.getInst().initState(data);
+                SearchCtrl.getInstance().updateCopies();
         }
 
         /* refresco de tablas especificas */
@@ -321,11 +321,13 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
         private void onEditClick(java.awt.event.MouseEvent evt) {
 
                 TableCtrl.getInstance().editItem(this, tabPanel, guestTable, bookinTable);
+                SearchCtrl.getInstance().updateCopies();
         }
 
         private void onDeleteClick(java.awt.event.MouseEvent evt){
 
                 TableCtrl.getInstance().deleteItem(this, tabPanel, guestTable, bookinTable);
+                SearchCtrl.getInstance().updateCopies();
 
         }
 
@@ -345,6 +347,6 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
         private javax.swing.JLabel jLabel2;
         private javax.swing.JScrollPane jScrollPane1;
         private javax.swing.JScrollPane jScrollPane2;
-        private javax.swing.JTextField inputSearchField;
+        private CustomTextField inputSearchField;
         private javax.swing.JTabbedPane tabPanel;
 }
