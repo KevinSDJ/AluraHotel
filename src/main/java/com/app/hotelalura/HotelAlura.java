@@ -17,12 +17,13 @@ public class HotelAlura {
       
         Main main = new Main();
         main.setVisible(true);
-        main.setEnabled(false);
         /**
          * añadi un methodo que verifique la conexion a la base de datos
          * en caso de fallar o la falta de la base de datos correspondiente para la app
          * se mostrara un mensaje de fallo la conexion y se cerrara la app
         */
+        /*main.setEnabled(false);
+        
         try(Connection conn= dbConn.getConnection()){
             conn.close();
             StatusBox.getInstance().geSubj().updateSuccess();
@@ -38,7 +39,7 @@ public class HotelAlura {
                 System.exit(0);
                 return null;
             });
-        }
+        }*/
        
     }
 

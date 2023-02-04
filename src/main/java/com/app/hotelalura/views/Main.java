@@ -1,5 +1,6 @@
 package com.app.hotelalura.views;
 
+
 import java.awt.Color;
 
 public class Main extends javax.swing.JFrame {
@@ -13,9 +14,11 @@ public class Main extends javax.swing.JFrame {
         setAutoRequestFocus(false);
         setSize(1024, 600);
         setResizable(false);
-        setBackground(new Color(0, 0, 0, 0));
+        setBackground(new Color(0, 0, 0,0));
         setLocationRelativeTo(null);
-        current = new Init(this);
+     
+        //current = new Init(this);
+        current= new Home();
         add(current);
 
     }

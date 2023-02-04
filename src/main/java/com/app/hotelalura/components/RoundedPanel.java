@@ -33,7 +33,7 @@ public class RoundedPanel extends javax.swing.JPanel {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setColor(getBackground());
         g2d.setPaint(getBackground());
-        g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+        g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
         super.paintComponent(g);
 
     }
