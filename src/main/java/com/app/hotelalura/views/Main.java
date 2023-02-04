@@ -17,8 +17,7 @@ public class Main extends javax.swing.JFrame {
         setBackground(new Color(0, 0, 0,0));
         setLocationRelativeTo(null);
      
-        //current = new Init(this);
-        current= new Home();
+        current = new Init(this);
         add(current);
 
     }

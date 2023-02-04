@@ -22,7 +22,7 @@ public class HotelAlura {
          * en caso de fallar o la falta de la base de datos correspondiente para la app
          * se mostrara un mensaje de fallo la conexion y se cerrara la app
         */
-        /*main.setEnabled(false);
+        main.setEnabled(false);
         
         try(Connection conn= dbConn.getConnection()){
             conn.close();
@@ -39,7 +39,7 @@ public class HotelAlura {
                 System.exit(0);
                 return null;
             });
-        }*/
+        }
        
     }
 

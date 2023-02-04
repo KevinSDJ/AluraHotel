@@ -77,6 +77,7 @@ public class LoginForm extends javax.swing.JPanel {
 
         passwordInput.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         passwordInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 passwordInputKeyTyped(evt);
             }
@@ -89,6 +90,7 @@ public class LoginForm extends javax.swing.JPanel {
         enterBtn.setAlignmentY(0.0F);
         enterBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         enterBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 enterBtnMouseClicked(evt);
             }

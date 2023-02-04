@@ -36,7 +36,7 @@ public class Home extends javax.swing.JPanel {
         });
 
         container.setPreferredSize(new Dimension((int) (1024 - menu1.getPreferredSize().getWidth()), 600));
-        current.setBounds(0, 50, (int) container.getPreferredSize().getWidth(), 550);
+        current.setBounds(0, 50, (int) container.getPreferredSize().getWidth(), 500);
         closedWindow.setBounds((int) container.getPreferredSize().getWidth() - 35, 10, 25, 25);
         container.add(current, JLayeredPane.DEFAULT_LAYER);
         container.add(closedWindow, Integer.valueOf(1));
@@ -68,7 +68,7 @@ public class Home extends javax.swing.JPanel {
             container.remove(current);
             current = searchSystem;
             container.add(current, JLayeredPane.DEFAULT_LAYER);
-            current.setBounds(0, 50, (int) container.getPreferredSize().getWidth(), 550);
+            current.setBounds(0, 50, (int) container.getPreferredSize().getWidth(), 500);
             current.setVisible(true);
             validate();
             container.repaint();

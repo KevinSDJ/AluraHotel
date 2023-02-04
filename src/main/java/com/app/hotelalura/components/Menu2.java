@@ -37,7 +37,7 @@ public class Menu2 extends javax.swing.JPanel {
             
         });
         userAvatar.setBackground(Color.red);
-        userAvatar.setIcon(new ImageIcon(getClass().getResource("/images/usuario.png")));
+        userAvatar.setIcon(new ImageIcon(getClass().getResource("/images/60111.jpg")));
         
     }
 
