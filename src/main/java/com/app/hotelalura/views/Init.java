@@ -1,10 +1,14 @@
 package com.app.hotelalura.views;
 
+import com.app.hotelalura.components.ImgRoundCorner;
 import com.app.hotelalura.components.statusConnection.StatusConnection;
+import java.awt.BorderLayout;
 import java.awt.Color;
-import javax.swing.JFrame;
-import org.netbeans.lib.awtextra.AbsoluteConstraints;
-import org.netbeans.lib.awtextra.AbsoluteLayout;
+import java.awt.Dimension;
+import javax.swing.ImageIcon;
+import javax.swing.JLayeredPane;
+import java.awt.FlowLayout;
+
 
 public class Init extends javax.swing.JPanel {
 
@@ -18,7 +22,7 @@ public class Init extends javax.swing.JPanel {
     private void initComponents(Main m,Init i) {
         
         backgroundBlue = new com.app.hotelalura.components.RoundedPanel();
-        receptionImg = new javax.swing.JLabel();
+        receptionImg = new ImgRoundCorner();
         backgroundWhite = new com.app.hotelalura.components.RoundedPanel();
         closeWindow = new javax.swing.JLabel();
         hotelIcon = new javax.swing.JLabel();
@@ -26,20 +30,19 @@ public class Init extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         loginWindow=new LoginWindow(i);
         statusConnection= new StatusConnection();
+        footer= new javax.swing.JPanel();
+        layeredPane=new JLayeredPane();
 
+        backgroundWhite.setPreferredSize(new Dimension(300,540));
+        receptionImg.setIcon(new ImageIcon(getClass().getResource("/images/menu-img.png")));
+        receptionImg.setPreferredSize(new Dimension((int) (1024 - backgroundWhite.getPreferredSize().getWidth()), 540));
+        
         setBackground(new Color(0,0,0,0));
         setSize(1024,600);
-        setBounds(0,0,1024,600);
 
         backgroundBlue.setBackground(new java.awt.Color(25, 129, 175));
-        backgroundBlue.setLayout(new AbsoluteLayout());
-
-        receptionImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu-img.png"))); // NOI18N
-        receptionImg.setText("receptionImg");
-        backgroundBlue.add(receptionImg, new AbsoluteConstraints(0, 0, 700, -1));
-
         backgroundWhite.setBackground(new java.awt.Color(255, 255, 255));
-
+        
         closeWindow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cerrar-24px.png"))); // NOI18N
         closeWindow.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -99,28 +102,32 @@ public class Init extends javax.swing.JPanel {
                 .addContainerGap(131, Short.MAX_VALUE))
         );
 
-        backgroundBlue.add(backgroundWhite, new AbsoluteConstraints(694, 0, 330, 539));
 
-        jLabel3.setFont(new java.awt.Font("Nimbus Sans", 1, 18)); // NOI18N
+        /* footer component */
+        jLabel3.setFont(new java.awt.Font("Nimbus Sans", 1, 18));
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Developed by Kevin De Jesus  © 2023");
         statusConnection.setBackground(new Color(0,0,0,0));
-        backgroundBlue.add(jLabel3, new AbsoluteConstraints(357, 557, 337, 29));
-        /* posicionamiento de componente */
-        /* los espacios son donde va a ceber el elemento en anchura*/
-        /*espacion -x, position y, espacio x+, position x */
-        backgroundBlue.add(statusConnection, new AbsoluteConstraints(100, 557, 170, 30));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(backgroundBlue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(backgroundBlue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        footer.setPreferredSize(new Dimension(1024,60));
+        footer.setBackground(new Color(0,0,0,0));
+        footer.setLayout(new FlowLayout(FlowLayout.CENTER,20,20));
+        footer.add(statusConnection);
+        footer.add(jLabel3);
+
+        layeredPane.setPreferredSize(new Dimension(1024,600));
+
+        backgroundBlue.setLayout(new BorderLayout());
+        backgroundBlue.setBounds(0,0,1024,600);
+        backgroundBlue.add(backgroundWhite,BorderLayout.EAST);
+        backgroundBlue.add(receptionImg,BorderLayout.WEST);
+        backgroundBlue.add(footer,BorderLayout.SOUTH);
+
+        layeredPane.add(backgroundBlue,JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(loginWindow,Integer.valueOf(1));
+        
+        setLayout(new BorderLayout());
+        add(layeredPane);
     }
 
     private void closeWindowMouseClicked(java.awt.event.MouseEvent evt) {    
@@ -143,13 +150,15 @@ public class Init extends javax.swing.JPanel {
 
 
     private final Main mainref;
-    private JFrame loginWindow;
+    private javax.swing.JPanel loginWindow;
     private StatusConnection statusConnection;
-    private javax.swing.JLabel receptionImg;
+    private ImgRoundCorner receptionImg;
+    private javax.swing.JPanel footer;
     private javax.swing.JLabel closeWindow;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel hotelIcon;
     private javax.swing.JButton loginBtn;
+    private javax.swing.JLayeredPane layeredPane;
     private com.app.hotelalura.components.RoundedPanel backgroundBlue;
     private com.app.hotelalura.components.RoundedPanel backgroundWhite;
    

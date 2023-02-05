@@ -272,7 +272,7 @@ public class GuestForm extends javax.swing.JPanel {
                 this,
                 parentref.updateDataForm().getId(),
                 parentref.updateDataForm().getFirst_name(),
-                parentref.updateDataForm().getSurname(),
+                parentref.updateDataForm().getSurname().trim(),
                 parentref.updateDataForm().getDate_birth(),
                 parentref.updateDataForm().getNationality(),
                 parentref.updateDataForm().getPhone()
