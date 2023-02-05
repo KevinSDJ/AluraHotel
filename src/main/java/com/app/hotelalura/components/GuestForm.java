@@ -14,7 +14,6 @@ import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.time.LocalDate;
 import javax.swing.ImageIcon;
-import javax.swing.border.LineBorder;
 
 public class GuestForm extends javax.swing.JPanel {
 
