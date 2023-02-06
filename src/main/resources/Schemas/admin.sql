@@ -3,8 +3,8 @@ drop table Admin;
 
 CREATE TABLE if not exists Admin(
 id int auto_increment unique primary key not null,
-firstName varchar(15),
-surname varchar(10),
+firstName varchar(20),
+surname varchar(20),
 dateBirth date,
 nationality varchar(20),
 phone varchar(40),

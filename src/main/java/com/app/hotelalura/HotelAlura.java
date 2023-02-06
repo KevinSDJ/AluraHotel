@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.app.hotelalura.components.statusConnection.StatusBox;
 import com.app.hotelalura.dbconn.DbConn;
+import com.app.hotelalura.utils.UpTables;
 import com.app.hotelalura.views.Home;
 import com.app.hotelalura.views.Init;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -39,7 +40,9 @@ public class HotelAlura extends javax.swing.JFrame {
         m.setEnabled(false);
         
         try(Connection conn= dbConn.getConnection()){
-            conn.close();
+            
+            UpTables.run(conn);
+
             StatusBox.getInstance().geSubj().updateSuccess();
             m.setEnabled(true);
         }catch(Exception ex){
