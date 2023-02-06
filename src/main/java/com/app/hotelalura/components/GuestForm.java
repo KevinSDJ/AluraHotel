@@ -98,7 +98,6 @@ public class GuestForm extends javax.swing.JPanel {
             }
         });
 
-        dateBirthInput.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(25, 129, 175), 1, true));
         dateBirthInput.setDateFormatString("yyyy-MM-dd");
         dateBirthInput.setIcon(null);
         int maxima= LocalDate.now().getYear()-18;
@@ -123,7 +122,15 @@ public class GuestForm extends javax.swing.JPanel {
         jLabel7.setText("Nationality");
         jLabel7.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
-        nationalityInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        nationalityInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { 
+            "Argentina",
+            "Mexico",
+            "Brazil",
+            "Uruguay",
+            "Pararguay",
+            "Chile",
+            "Others"
+        }));
 
         jLabel8.setFont(new java.awt.Font("Nimbus Sans", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(102, 102, 102));

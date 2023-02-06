@@ -1,33 +1,47 @@
 package com.app.hotelalura;
 
-
-import com.app.hotelalura.components.statusConnection.StatusBox;
-import com.app.hotelalura.dbconn.DbConn;
-import com.app.hotelalura.views.Main;
+import java.awt.Color;
 import java.sql.Connection;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import com.app.hotelalura.components.statusConnection.StatusBox;
+import com.app.hotelalura.dbconn.DbConn;
+import com.app.hotelalura.views.Home;
+import com.app.hotelalura.views.Init;
+import com.formdev.flatlaf.FlatLightLaf;
 
-public class HotelAlura {
+public class HotelAlura extends javax.swing.JFrame {
+
     private static DbConn dbConn= DbConn.getInstance();
 
-    public static void main(String args[]) {
-        
-      
-        Main main = new Main();
-        main.setVisible(true);
-        /**
-         * añadi un methodo que verifique la conexion a la base de datos
-         * en caso de fallar o la falta de la base de datos correspondiente para la app
-         * se mostrara un mensaje de fallo la conexion y se cerrara la app
-        */
-        main.setEnabled(false);
+    public HotelAlura() {
+        initComponents();
+    }
+
+    private void initComponents() {
+        setUndecorated(true);
+        setAutoRequestFocus(false);
+        setSize(1024, 600);
+        setResizable(false);
+        setBackground(new Color(0, 0, 0,0));
+        setLocationRelativeTo(null);
+        FlatLightLaf.setup();
+        current = new Init(this);
+        add(current);
+
+    }
+
+    public static void main(String... args) {
+
+        HotelAlura m= new HotelAlura();
+        m.setVisible(true);
+        m.setEnabled(false);
         
         try(Connection conn= dbConn.getConnection()){
             conn.close();
             StatusBox.getInstance().geSubj().updateSuccess();
-            main.setEnabled(true);
+            m.setEnabled(true);
         }catch(Exception ex){
             StatusBox.getInstance().geSubj().updateFail();
             CompletableFuture.supplyAsync(()->{
@@ -40,7 +54,21 @@ public class HotelAlura {
                 return null;
             });
         }
-       
     }
+
+    public void changeView() {
+        current.setVisible(false);
+        remove(current);
+        current = new Home();
+        current.setVisible(true);
+        add(current);
+        repaint();
+    }
+
+    public void goHome() {
+        changeView();
+    }
+
+    private javax.swing.JPanel current;
 
 }

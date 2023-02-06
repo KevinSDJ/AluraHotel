@@ -18,7 +18,7 @@ public class RegisterBooking extends javax.swing.JFrame  {
     private void initComponents() {
 
         container = new javax.swing.JPanel();
-        guestForm = new com.app.hotelalura.components.GuestForm(this);
+        
         bookingForm= new com.app.hotelalura.components.BookingForm(this);
         current=bookingForm;
         
@@ -38,12 +38,15 @@ public class RegisterBooking extends javax.swing.JFrame  {
     }
 
     public static void main(String... args) {
-        java.awt.EventQueue.invokeLater(() -> new RegisterBooking(homeref).setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new RegisterBooking(homeref));
     }
     
     public void nextForm(){
         current.setVisible(false);
         container.remove(current);
+        if(guestForm==null){
+            guestForm = new com.app.hotelalura.components.GuestForm(this);
+        }
         current=guestForm;
         container.add(current);
         current.setVisible(true);

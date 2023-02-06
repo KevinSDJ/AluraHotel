@@ -8,7 +8,6 @@ import com.app.hotelalura.entities.Booking;
 import com.app.hotelalura.entities.Guest;
 import com.app.hotelalura.utils.Cache;
 import com.app.hotelalura.utils.pattern_obs.Observer;
-import com.formdev.flatlaf.FlatLightLaf;
 import java.util.List;
 import java.awt.Dimension;
 import javax.swing.ImageIcon;
@@ -24,7 +23,6 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
 
         public SearchSystem() {
                 bookingCtrl = BookingCtrl.getInstance();
-                FlatLightLaf.setup();
                 initComponents();
                 fullLoad();
                 Cache.getInst().subscribe(this);
@@ -59,6 +57,10 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
                                 return canEdit[columnIndex];
                         }
                 });
+                bookinTable.setRowHeight(30);
+                bookinTable.setFont(new java.awt.Font("Nimbus Sans", 0, 12));
+                guestTable.setRowHeight(30);
+                guestTable.setFont(new java.awt.Font("Nimbus Sans", 0, 12));
 
                 jScrollPane1.setViewportView(bookinTable);
                 tabPanel.addTab("Bookings", jScrollPane1);

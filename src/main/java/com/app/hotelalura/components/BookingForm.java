@@ -64,7 +64,6 @@ public class BookingForm extends javax.swing.JPanel {
         jLabel3.setText("Booking Record");
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        inputDateIn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(25, 129, 175), 1, true));
         inputDateIn.setDateFormatString("yyyy-MM-dd");
         inputDateIn.setIcon(null);
         inputDateIn.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -73,7 +72,6 @@ public class BookingForm extends javax.swing.JPanel {
             }
         });
 
-        inputDateOut.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(25, 129, 175), 1, true));
         inputDateOut.setDateFormatString("yyyy-MM-dd");
         inputDateOut.setIcon(null);
         inputDateOut.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -113,7 +111,7 @@ public class BookingForm extends javax.swing.JPanel {
         cancelBtn.setPreferredSize(new java.awt.Dimension(72, 33));
       
 
-        paymentMethodInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CREDIT CARD", "CARD DEBIT", "EFFECTIVE" }));
+        paymentMethodInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CREDIT CARD", "CARD DEBIT", "PAY CASH" }));
 
         paymentLabel.setFont(new java.awt.Font("Nimbus Sans", 1, 14)); // NOI18N
         paymentLabel.setForeground(new java.awt.Color(102, 102, 102));

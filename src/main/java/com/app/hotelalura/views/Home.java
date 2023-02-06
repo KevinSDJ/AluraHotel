@@ -10,20 +10,21 @@ import java.awt.event.MouseEvent;
 import javax.swing.JLayeredPane;
 
 public class Home extends javax.swing.JPanel {
+    private Home instance;
 
     public Home() {
         initComponents(this);
+        
 
     }
 
     private void initComponents(Home h) {
-
+        instance= h;
         backgroundPanel = new com.app.hotelalura.components.RoundedPanel();
-        menu1 = new com.app.hotelalura.components.Menu2(h);
+        menu1 = new com.app.hotelalura.components.Menu2(instance);
         closedWindow = new javax.swing.JLabel();
         container = new javax.swing.JLayeredPane();
         defMenuView1 = new com.app.hotelalura.components.DefMenuView();
-        searchSystem = new com.app.hotelalura.components.SearchSystem();
         current = defMenuView1;
         closedWindow.setBounds(0, 0, 25, 25);
         closedWindow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cerrar-24px.png")));
@@ -64,26 +65,31 @@ public class Home extends javax.swing.JPanel {
 
     public void changePanelView() {
         if (!current.equals(searchSystem)) {
+            if(searchSystem==null){
+                searchSystem = new com.app.hotelalura.components.SearchSystem();
+            }
             current.setVisible(false);
             container.remove(current);
             current = searchSystem;
             container.add(current, JLayeredPane.DEFAULT_LAYER);
             current.setBounds(0, 50, (int) container.getPreferredSize().getWidth(), 500);
             current.setVisible(true);
-            validate();
             container.repaint();
+        }
+    }
+
+    public void openRegisterView() {
+        if(registerBooking==null){
+            registerBooking = new RegisterBooking(this);
+        }
+        if(!registerBooking.isVisible()){
+            registerBooking.setVisible(true);
         }
 
     }
 
-    public void openRegisterView() {
-        registerBooking = new RegisterBooking(this);
-        registerBooking.setVisible(true);
-    }
-
     public void closedRegisterView() {
         registerBooking.setVisible(false);
-        registerBooking = null;
     }
 
     private com.app.hotelalura.components.RoundedPanel backgroundPanel;

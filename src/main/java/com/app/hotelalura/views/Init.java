@@ -1,5 +1,6 @@
 package com.app.hotelalura.views;
 
+import com.app.hotelalura.HotelAlura;
 import com.app.hotelalura.components.ImgRoundCorner;
 import com.app.hotelalura.components.statusConnection.StatusConnection;
 import java.awt.BorderLayout;
@@ -9,17 +10,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JLayeredPane;
 import java.awt.FlowLayout;
 
-
 public class Init extends javax.swing.JPanel {
 
     
-    public Init(Main m){
+    public Init(HotelAlura m){
         mainref=m;
-        initComponents(m,this);
+        initComponents(m);
         setEnabled(false);
     }
 
-    private void initComponents(Main m,Init i) {
+    private void initComponents(HotelAlura m) {
         
         backgroundBlue = new com.app.hotelalura.components.RoundedPanel();
         receptionImg = new ImgRoundCorner();
@@ -28,7 +28,6 @@ public class Init extends javax.swing.JPanel {
         hotelIcon = new javax.swing.JLabel();
         loginBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        loginWindow=new LoginWindow(i);
         statusConnection= new StatusConnection();
         footer= new javax.swing.JPanel();
         layeredPane=new JLayeredPane();
@@ -124,7 +123,6 @@ public class Init extends javax.swing.JPanel {
         backgroundBlue.add(footer,BorderLayout.SOUTH);
 
         layeredPane.add(backgroundBlue,JLayeredPane.DEFAULT_LAYER);
-        layeredPane.add(loginWindow,Integer.valueOf(1));
         
         setLayout(new BorderLayout());
         add(layeredPane);
@@ -139,6 +137,10 @@ public class Init extends javax.swing.JPanel {
     }
     
     private void loginBtnMouseClicked(java.awt.event.MouseEvent evt) {
+        if(loginWindow==null){
+            loginWindow=new LoginWindow(this);
+            layeredPane.add(loginWindow,Integer.valueOf(1));
+        }
         loginWindow.setVisible(true);
         
     }
@@ -149,7 +151,7 @@ public class Init extends javax.swing.JPanel {
 
 
 
-    private final Main mainref;
+    private final HotelAlura mainref;
     private javax.swing.JPanel loginWindow;
     private StatusConnection statusConnection;
     private ImgRoundCorner receptionImg;
