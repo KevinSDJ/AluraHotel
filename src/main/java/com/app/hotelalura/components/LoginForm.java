@@ -3,10 +3,8 @@ package com.app.hotelalura.components;
 import com.app.hotelalura.controllers.AdminCtrl;
 import com.app.hotelalura.dto.AdminDTO;
 import com.app.hotelalura.views.Init;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.util.regex.Pattern;
 
 public class LoginForm extends javax.swing.JPanel {
@@ -34,14 +32,14 @@ public class LoginForm extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
 
         inputUsername.setToolTipText("The email is your username");
-        passwordInput.setToolTipText("" +
-                "between 8 and 16 characters, at least one digit,\n"
-                + "at least one lower case and at least one upper case.\n"
-                + "NOT have other symbols.");
+        passwordInput.setToolTipText("""
+                                     between 8 and 16 characters, at least one digit
+                                     at least one lower case and at least one upper case.
+                                     NOT have other symbols.
+                                     """);
 
-        setOpaque(false);
-        setBackground(new java.awt.Color(255, 255, 255));
-        setMaximumSize(new java.awt.Dimension(838, 520));
+
+        setBackground(new java.awt.Color(255, 255, 255,0));
         setPreferredSize(new java.awt.Dimension(838, 520));
         setLayout(new java.awt.BorderLayout());
 
@@ -65,6 +63,7 @@ public class LoginForm extends javax.swing.JPanel {
         inputUsername.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         inputUsername.setCaretColor(new java.awt.Color(204, 204, 204));
         inputUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 inputUsernameKeyTyped(evt);
             }
@@ -104,6 +103,7 @@ public class LoginForm extends javax.swing.JPanel {
         cancelBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         cancelBtn.setIconTextGap(1);
         cancelBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cancelBtnMouseClicked(evt);
             }
@@ -273,19 +273,16 @@ public class LoginForm extends javax.swing.JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setColor(new Color(255, 255, 255));
-        g2d.setPaint(new Color(255, 255, 255));
+        g2d.setColor(getBackground());
         g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
         super.paintComponent(g);
 
     }
 
-    private AdminCtrl adminControl;
+    private final AdminCtrl adminControl;
     private Boolean isPassValid = false;
     private Boolean isUsernameValid = false;
-    private Init initref;
-    
+    private final Init initref;
     private javax.swing.JButton cancelBtn;
     private javax.swing.JButton enterBtn;
     private javax.swing.JTextField inputUsername;

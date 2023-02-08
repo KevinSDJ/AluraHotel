@@ -12,9 +12,10 @@ import com.app.hotelalura.views.Home;
 import com.app.hotelalura.views.Init;
 import com.formdev.flatlaf.FlatLightLaf;
 
+
 public class HotelAlura extends javax.swing.JFrame {
 
-    private static DbConn dbConn= DbConn.getInstance();
+    private static final DbConn dbConn= DbConn.getInstance();
 
     public HotelAlura() {
         initComponents();
@@ -22,14 +23,12 @@ public class HotelAlura extends javax.swing.JFrame {
 
     private void initComponents() {
         setUndecorated(true);
-        setAutoRequestFocus(false);
         setSize(1024, 600);
-        setResizable(false);
         setBackground(new Color(0, 0, 0,0));
         setLocationRelativeTo(null);
         FlatLightLaf.setup();
         current = new Init(this);
-        add(current);
+        getContentPane().add(current);
 
     }
 
@@ -61,11 +60,11 @@ public class HotelAlura extends javax.swing.JFrame {
 
     public void changeView() {
         current.setVisible(false);
-        remove(current);
+        getContentPane().remove(current);
         current = new Home();
         current.setVisible(true);
-        add(current);
-        repaint();
+        getContentPane().add(current);
+        getContentPane().repaint();
     }
 
     public void goHome() {

@@ -90,6 +90,7 @@ public class Home extends javax.swing.JPanel {
 
     public void closedRegisterView() {
         registerBooking.setVisible(false);
+        registerBooking=null;
     }
 
     private com.app.hotelalura.components.RoundedPanel backgroundPanel;

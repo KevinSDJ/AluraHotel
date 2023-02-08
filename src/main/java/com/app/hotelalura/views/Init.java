@@ -7,19 +7,22 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.ImageIcon;
-import javax.swing.JLayeredPane;
 import java.awt.FlowLayout;
+import java.util.concurrent.CompletableFuture;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class Init extends javax.swing.JPanel {
 
     
     public Init(HotelAlura m){
         mainref=m;
-        initComponents(m);
-        setEnabled(false);
+        initComponents();
+
     }
 
-    private void initComponents(HotelAlura m) {
+    private void initComponents() {
         
         backgroundBlue = new com.app.hotelalura.components.RoundedPanel();
         receptionImg = new ImgRoundCorner();
@@ -30,8 +33,9 @@ public class Init extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         statusConnection= new StatusConnection();
         footer= new javax.swing.JPanel();
-        layeredPane=new JLayeredPane();
+        loginWindow=new LoginWindow(mainref,this,true);
 
+        
         backgroundWhite.setPreferredSize(new Dimension(300,540));
         receptionImg.setIcon(new ImageIcon(getClass().getResource("/images/menu-img.png")));
         receptionImg.setPreferredSize(new Dimension((int) (1024 - backgroundWhite.getPreferredSize().getWidth()), 540));
@@ -67,6 +71,7 @@ public class Init extends javax.swing.JPanel {
         loginBtn.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         loginBtn.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
         loginBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 loginBtnMouseClicked(evt);
             }
@@ -103,7 +108,7 @@ public class Init extends javax.swing.JPanel {
 
 
         /* footer component */
-        jLabel3.setFont(new java.awt.Font("Nimbus Sans", 1, 18));
+        jLabel3.setFont(new java.awt.Font("Nimbus Sans", 1, 16));
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Developed by Kevin De Jesus  © 2023");
         statusConnection.setBackground(new Color(0,0,0,0));
@@ -114,18 +119,15 @@ public class Init extends javax.swing.JPanel {
         footer.add(statusConnection);
         footer.add(jLabel3);
 
-        layeredPane.setPreferredSize(new Dimension(1024,600));
-
         backgroundBlue.setLayout(new BorderLayout());
         backgroundBlue.setBounds(0,0,1024,600);
         backgroundBlue.add(backgroundWhite,BorderLayout.EAST);
         backgroundBlue.add(receptionImg,BorderLayout.WEST);
         backgroundBlue.add(footer,BorderLayout.SOUTH);
 
-        layeredPane.add(backgroundBlue,JLayeredPane.DEFAULT_LAYER);
-        
         setLayout(new BorderLayout());
-        add(layeredPane);
+        add(backgroundBlue);
+        
     }
 
     private void closeWindowMouseClicked(java.awt.event.MouseEvent evt) {    
@@ -135,24 +137,29 @@ public class Init extends javax.swing.JPanel {
     public void closedLogin(){
         loginWindow.setVisible(false);
     }
+  
     
     private void loginBtnMouseClicked(java.awt.event.MouseEvent evt) {
-        if(loginWindow==null){
-            loginWindow=new LoginWindow(this);
-            layeredPane.add(loginWindow,Integer.valueOf(1));
-        }
         loginWindow.setVisible(true);
         
     }
     public void clsLogAndGoHom(){
-        loginWindow.setVisible(false);
-        mainref.goHome();
+        closedLogin();
+        CompletableFuture.supplyAsync(()->{
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Init.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             mainref.goHome();
+             return null;
+        });
     }
 
 
 
     private final HotelAlura mainref;
-    private javax.swing.JPanel loginWindow;
+    private javax.swing.JDialog loginWindow;
     private StatusConnection statusConnection;
     private ImgRoundCorner receptionImg;
     private javax.swing.JPanel footer;
@@ -160,7 +167,6 @@ public class Init extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel hotelIcon;
     private javax.swing.JButton loginBtn;
-    private javax.swing.JLayeredPane layeredPane;
     private com.app.hotelalura.components.RoundedPanel backgroundBlue;
     private com.app.hotelalura.components.RoundedPanel backgroundWhite;
    

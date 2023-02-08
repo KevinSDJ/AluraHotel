@@ -53,6 +53,7 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
                 }) {
                         boolean[] canEdit = { false, false, true, true, true, true };
 
+                        @Override
                         public boolean isCellEditable(int rowIndex, int columnIndex) {
                                 return canEdit[columnIndex];
                         }
@@ -70,6 +71,7 @@ public class SearchSystem extends javax.swing.JPanel implements Observer<FullDat
                 }) {
                         boolean[] canEdit = { false, true, true, true, true, true };
 
+                        @Override
                         public boolean isCellEditable(int rowIndex, int columnIndex) {
                                 return canEdit[columnIndex];
                         }

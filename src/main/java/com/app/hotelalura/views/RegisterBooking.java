@@ -50,7 +50,6 @@ public class RegisterBooking extends javax.swing.JFrame  {
         current=guestForm;
         container.add(current);
         current.setVisible(true);
-        validate();
         repaint();
         guestForm.update();
         

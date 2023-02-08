@@ -1,37 +1,62 @@
 package com.app.hotelalura.views;
 
-import com.app.hotelalura.components.LoginForm;
 import java.awt.Color;
-import java.awt.GridBagLayout;
+import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.Toolkit;
+import javax.swing.JFrame;
+import com.app.hotelalura.components.LoginForm;
 
-public class LoginWindow extends javax.swing.JPanel {
-    
-    public LoginWindow(Init i) {
-        initComponents(i);
+public class LoginWindow extends javax.swing.JDialog {
+
+    public LoginWindow(java.awt.Frame parent,Init i, boolean modal) {
+        super(parent, modal);
+        initref=i;
+        initComponents();
+        
     }
-    
-    private void initComponents(Init i) {
-        loginForm= new LoginForm(i);
-        setVisible(false);
+
+ 
+
+    private void initComponents() {
+        
+        loginForm= new LoginForm(initref);
+        setUndecorated(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new Color(0,0,0,80));
-        setBounds(0,0,1024,598);
-        setLayout(new GridBagLayout());
-        add(loginForm);
+        setPreferredSize(new Dimension(1024,600));
+        setLocation((toolkit.getScreenSize().width-1024)/2,(toolkit.getScreenSize().height-600)/2);
+        getContentPane().setLayout(new java.awt.GridBagLayout());
+        getContentPane().add(loginForm);
+
+        pack();
+    }
+
+  
+    public static void main(String args[]) {
+      
+        java.awt.EventQueue.invokeLater(() -> {
+            LoginWindow dialog = new LoginWindow((JFrame) initref.getParent(),initref, true);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
+        });
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
-        Graphics2D g2d =(Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setColor(getBackground());
-        g2d.setPaint(getBackground());
-        g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
-        super.paintComponent(g);
-
+    public void paint(Graphics g) {
+        g.setColor(getBackground());
+        g.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
+        super.paint(g);
     }
 
-    private com.app.hotelalura.components.LoginForm loginForm;
+    private static Init initref;
+    private LoginForm loginForm;
+    final Toolkit toolkit = Toolkit.getDefaultToolkit();
+  
+
 }
