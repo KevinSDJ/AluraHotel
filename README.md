@@ -13,3 +13,11 @@ very important, enviroment variables required to run :
 
 >> java source = 17
 >>
+
+<img src="captures/hotel_alura_capture1.jpg" alt="drawing" width="500"/>
+
+<img src="captures/hotel_alura_capture2.jpg" width="500" />
+
+<img src="captures/hotel_alura_capture3.jpg" width="500"  />
+
+<img  src="captures/hotel_alura_capture4.jpg" width="500" />
